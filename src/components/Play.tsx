@@ -30,6 +30,11 @@ export const Play: React.FC<PlayProps> = ({ addNewGameResult }) => {
 							'Dumbledore',
 							'Hermione',
 						],
+						chosenCats: [
+							{ player: 'Snape', cat: 'chef' },
+							{ player: 'Dumbledore', cat: 'captain' },
+							{ player: 'Hermione', cat: 'engineer' },
+						],
 						start: startTimestamp,
 						end: new Date().toISOString(),
 					});
