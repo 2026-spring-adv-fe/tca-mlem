@@ -17,6 +17,7 @@ type HomeProps = {
 export const Home: React.FC<HomeProps> = ({ generalFacts }) => {
 	const nav = useNavigate();
 
+
 	return (
 		<>
 			<div className="mx-auto w-96">
@@ -63,12 +64,16 @@ export const Home: React.FC<HomeProps> = ({ generalFacts }) => {
 					<li className="list-row text-lg">
 						Longest Game: <span className="text-right">{ generalFacts.longestGame }</span>
 					</li>
+
+					<li className="list-row text-lg">
+						Favorite Cat: <span className="text-right">{ generalFacts.favoriteCat }</span>
+					</li>
 				</ul>
 			</div>
 
 			<div className="text-center mt-10">
 				<button
-					className="btn bg-purple-700 text-white"
+					className="btn bg-purple-700 text-white w-96"
 					onClick={ () => nav('/setup') }
 				>
 					Setup a game

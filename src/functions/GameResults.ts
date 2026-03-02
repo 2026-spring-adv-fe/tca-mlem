@@ -82,9 +82,19 @@ export const getGeneralFacts = (games: GameResult[], player: string): GeneralFac
 	const playedCats = playerGames.flatMap(game =>
 		game.chosenCats.filter(c => c.player == player)
 	);
-	const favoriteCat = playedCats;
+	// const favoriteCat = 'N/A';
+	const counts: Record<string, number> = {};
 
-	console.log(favoriteCat);
+	playedCats.map(pc => counts[pc.cat] = (counts[pc.cat] || 0) + 1);
+
+	let favoriteCat = 'N/A';
+    let maxCount = 0;
+    for (const [cat, count] of Object.entries(counts)) {
+		if (count > maxCount) {
+			maxCount = count;
+            favoriteCat = cat;
+        }
+    }
 
     return {
         lastPlayed: `${lastPlayedGame}`,

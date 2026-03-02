@@ -23,7 +23,7 @@ const dummyGameResults: GameResult[] = [
 		],
 		chosenCats: [
 			{ player: 'Harry', cat: 'chef' },
-			{ player: 'Hermione', cat: 'captain' },
+			{ player: 'Hermione', cat: 'Engineer' },
 			{ player: 'Ron', cat: 'explorer' }
 		],
 		start: "2026-02-01T18:53:59.078Z",
@@ -38,7 +38,7 @@ const dummyGameResults: GameResult[] = [
 		],
 		chosenCats: [
 			{ player: 'Harry', cat: 'chef' },
-			{ player: 'Hermione', cat: 'captain' },
+			{ player: 'Hermione', cat: 'Captain' },
 			{ player: 'Ron', cat: 'explorer' }
 		],
 		start: "2026-01-15T22:07:59.078Z",
@@ -53,7 +53,7 @@ const dummyGameResults: GameResult[] = [
 		],
 		chosenCats: [
 			{ player: 'Snape', cat: 'chef' },
-			{ player: 'Hermione', cat: 'captain' },
+			{ player: 'Hermione', cat: 'Captain' },
 			{ player: 'Ron', cat: 'explorer' }
 		],
 		start: "2026-02-12T22:07:59.078Z",
@@ -76,6 +76,8 @@ const App = () => {
 		...gameResults,
 		gameResult,
 	]);
+
+	console.log(gameResults);
 
 	/*
 		Return JSX
