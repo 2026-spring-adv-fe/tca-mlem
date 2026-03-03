@@ -1,4 +1,4 @@
-import { formatDistanceToNow, differenceInMinutes } from 'date-fns';
+import { durationFormatter } from 'human-readable';
 
 /*
 	Exported type definitions
@@ -60,20 +60,15 @@ export const getGeneralFacts = (games: GameResult[], player: string): GeneralFac
     }
 
 	// Get game end as date object
-	const gameEnds = playerGames.map(game => new Date(game.end));
+	const now = Date.now();
+	const gameEnds = playerGames.map(game => now - Date.parse(game.end));
+	const mostRecentGame = Math.min(...gameEnds);
 
-	// Get the most recent game in milliseconds
-	const mostRecentGame = new Date(Math.max(
-		...gameEnds.map(date => date.getTime())
-	));
-
-	// Get distance between now and most recent game with suffix of minutes / days / etc
-	const lastPlayedGame = formatDistanceToNow(mostRecentGame, { addSuffix: true });
-
-	// Get game durations in minutes
-	const durationsInMinutes = playerGames.map(game =>
-		differenceInMinutes(new Date(game.end), new Date(game.start))
+	// Get game durations
+	const gameDurations = playerGames.map(game =>
+		Date.parse(game.end) - Date.parse(game.start)
 	);
+
 
 	// Get games the player has won
 	const playerWonGames = playerGames.filter(game => game.winner == player);
@@ -82,25 +77,34 @@ export const getGeneralFacts = (games: GameResult[], player: string): GeneralFac
 	const playedCats = playerGames.flatMap(game =>
 		game.chosenCats.filter(c => c.player == player)
 	);
-	// const favoriteCat = 'N/A';
-	const counts: Record<string, number> = {};
 
-	playedCats.map(pc => counts[pc.cat] = (counts[pc.cat] || 0) + 1);
+	// Get count of each cat played
+	const catCount: Record<string, number> = {};
+	playedCats.map(pc => catCount[pc.cat] = (catCount[pc.cat] || 0) + 1);
 
-	let favoriteCat = 'N/A';
-    let maxCount = 0;
-    for (const [cat, count] of Object.entries(counts)) {
-		if (count > maxCount) {
-			maxCount = count;
-            favoriteCat = cat;
-        }
-    }
+	// Gets the max value of catCount
+	const max = Object.values(catCount).reduce((a, b) => Math.max(a, b), 0);
+
+	const favoriteCats = Object.keys(catCount).filter(k => catCount[k] == max);
+
+
+	// let favoriteCat = 'N/A';
+    // let maxCount = 0;
+    // for (const [cat, count] of Object.entries(catCount)) {
+	// 	if (count > maxCount) {
+	// 		maxCount = count;
+    //         favoriteCat = cat;
+    //     }
+    // }
+
+
+
 
     return {
-        lastPlayed: `${lastPlayedGame}`,
-        shortestGame: `${Math.min(...durationsInMinutes)} minutes`,
-        longestGame: `${Math.max(...durationsInMinutes)} minutes`,
-		favoriteCat: `${favoriteCat}`,
+        lastPlayed: formatLastPlayed(mostRecentGame),
+		shortestGame:formatGameDuration(Math.min(...gameDurations)),
+        longestGame: formatGameDuration(Math.max(...gameDurations)),
+		favoriteCat: `${favoriteCats.join(', ')}`,
 
 		wins: playerWonGames.length,
 		losses: playerGames.length - playerWonGames.length,
@@ -113,3 +117,9 @@ export const getGeneralFacts = (games: GameResult[], player: string): GeneralFac
 /*
 	Helper functions
 */
+
+const formatGameDuration = durationFormatter<string> ({});
+const formatLastPlayed = durationFormatter<string> ({
+	allowMultiples: ['y', 'mo', 'd', 'h', 'm'],
+	keepNonLeadingZeroes: false
+});

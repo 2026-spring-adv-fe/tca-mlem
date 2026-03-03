@@ -17,6 +17,7 @@ type HomeProps = {
 export const Home: React.FC<HomeProps> = ({ generalFacts }) => {
 	const nav = useNavigate();
 
+	console.log(generalFacts);
 
 	return (
 		<>
