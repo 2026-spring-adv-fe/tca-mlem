@@ -32,10 +32,10 @@ export const Leaderboard: React.FC<LeaderboardProps> = ({ leaderboard, player })
 							leaderboard.map((p, i) =>
 								<tr key={ p.name }>
 									<td>{ i + 1 }</td>
-									<td className=" flex items-center gap-5 w-25">
+									<td className='flex items-center gap-5 w-25'>
 										{ p.name }
 										{ p.name == player
-											? <span className="material-symbols-outlined text-purple-900">person_pin</span>
+											? <span className="material-symbols-outlined text-purple-900">person</span>
 											: null
 										}
 									</td>
