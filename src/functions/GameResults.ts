@@ -74,9 +74,6 @@ export const getGeneralFacts = (games: GameResult[], player: string): GeneralFac
 	);
 
 
-	// Get games the player has won
-	const playerWonGames = playerGames.filter(game => game.winner == player);
-
 	// Calculate players favorite cat
 	const playedCats = playerGames.flatMap(game =>
 		game.chosenCats.filter(c => c.player == player)
@@ -87,9 +84,9 @@ export const getGeneralFacts = (games: GameResult[], player: string): GeneralFac
 	playedCats.map(pc => catCount[pc.cat] = (catCount[pc.cat] || 0) + 1);
 
 	// Gets the max value of catCount
-	const max = Object.values(catCount).reduce((a, b) => Math.max(a, b), 0);
+	const maxCount = Object.values(catCount).reduce((a, b) => Math.max(a, b), 0);
 
-	const favoriteCats = Object.keys(catCount).filter(k => catCount[k] == max);
+	const favoriteCats = Object.keys(catCount).filter(k => catCount[k] == maxCount);
 
     return {
         lastPlayed: formatLastPlayed(mostRecentGame),
