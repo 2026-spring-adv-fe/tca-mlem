@@ -27,12 +27,25 @@ export type GeneralFacts = {
 	wins: number
 	losses: number
 	ratio: number
-    totalGames: number;
 };
+
+export type LeaderboardEntry = {
+	name:string;
+	wins: number;
+	losses: number;
+	ratio: number;
+	totalGames: number;
+	rank : number;
+}
 
 
 /*
 	Exported Functions
+*/
+
+
+/*
+	Get a player's general facts
 */
 export const getGeneralFacts = (games: GameResult[], player: string): GeneralFacts => {
 	// Get the games of the provided player or all games otherwise
@@ -55,7 +68,6 @@ export const getGeneralFacts = (games: GameResult[], player: string): GeneralFac
 			wins: 0,
 			losses: 0,
 			ratio: 0.00,
-			totalGames: 0,
         }
     }
 
@@ -87,19 +99,6 @@ export const getGeneralFacts = (games: GameResult[], player: string): GeneralFac
 
 	const favoriteCats = Object.keys(catCount).filter(k => catCount[k] == max);
 
-
-	// let favoriteCat = 'N/A';
-    // let maxCount = 0;
-    // for (const [cat, count] of Object.entries(catCount)) {
-	// 	if (count > maxCount) {
-	// 		maxCount = count;
-    //         favoriteCat = cat;
-    //     }
-    // }
-
-
-
-
     return {
         lastPlayed: formatLastPlayed(mostRecentGame),
 		shortestGame:formatGameDuration(Math.min(...gameDurations)),
@@ -109,9 +108,49 @@ export const getGeneralFacts = (games: GameResult[], player: string): GeneralFac
 		wins: playerWonGames.length,
 		losses: playerGames.length - playerWonGames.length,
 		ratio: parseFloat((playerWonGames.length / playerGames.length).toFixed(2)),
-		totalGames: playerGames.length,
     };
 };
+
+
+/*
+	Get a player's leaderboard entry
+*/
+export const getLeaderboardEntry = (games: GameResult[], player: string): LeaderboardEntry => {
+	// Player win count
+	const wins = games.filter(game => game.winner == player).length;
+
+	// Player total game count
+	const totalGames = games.filter(game => game.players.includes(player)).length;
+
+	return {
+		name: player,
+		wins: wins,
+		losses: totalGames - wins,
+		ratio: parseFloat((wins / totalGames).toFixed(2)),
+		rank: 0,
+		totalGames: totalGames,
+	};
+}
+
+
+/*
+	Gets all players and creates a leaderboard in order of
+		1. Win / Loss Ratio
+		2. Wins
+*/
+export const getLeaderboard = (games: GameResult[]): LeaderboardEntry[] => {
+	const leaderboard = getAllPlayers(games).map(player =>
+		({ ...getLeaderboardEntry(games, player) })
+	).sort((a, b) =>
+		b.ratio - a.ratio
+	).sort((a, b) =>
+		b.wins - a.wins
+	);
+
+	return leaderboard.map((player, i) =>
+		({ ...player, rank: i + 1 })
+	);
+}
 
 
 /*
@@ -123,3 +162,16 @@ const formatLastPlayed = durationFormatter<string> ({
 	allowMultiples: ['y', 'mo', 'd', 'h', 'm'],
 	keepNonLeadingZeroes: false
 });
+
+
+const getAllPlayers = (games: GameResult[]) => {
+	const allPlayers = games.flatMap(game =>
+		game.players
+	).sort((a, b) =>
+		a.localeCompare(b)
+	);
+
+	const players = new Set(allPlayers);
+
+	return Array.from(players);
+}
