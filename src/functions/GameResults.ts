@@ -23,10 +23,6 @@ export type GeneralFacts = {
     shortestGame: string;
     longestGame: string;
 	favoriteCat: string;
-
-	wins: number
-	losses: number
-	ratio: number
 };
 
 export type LeaderboardEntry = {
@@ -64,10 +60,6 @@ export const getGeneralFacts = (games: GameResult[], player: string): GeneralFac
             shortestGame: 'N/A',
             longestGame: 'N/A',
 			favoriteCat: 'N/A',
-
-			wins: 0,
-			losses: 0,
-			ratio: 0.00,
         }
     }
 
@@ -104,10 +96,6 @@ export const getGeneralFacts = (games: GameResult[], player: string): GeneralFac
 		shortestGame:formatGameDuration(Math.min(...gameDurations)),
         longestGame: formatGameDuration(Math.max(...gameDurations)),
 		favoriteCat: `${favoriteCats.join(', ')}`,
-
-		wins: playerWonGames.length,
-		losses: playerGames.length - playerWonGames.length,
-		ratio: parseFloat((playerWonGames.length / playerGames.length).toFixed(2)),
     };
 };
 
