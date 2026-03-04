@@ -21,7 +21,7 @@ export const Navbar: React.FC<NavbarProps> = ({ playerName }) => {
 	return (
 		<>
 			{/* Top navbar for aesthetic */}
-			<div className="navbar font-[Fira_Sans] bg-purple-700 text-white shadow-md">
+			<div className="navbar font-[Fira_Sans] bg-purple-900 text-white shadow-md">
 				<h1 className="text-xl pl-2 font-bold navbar-start">MLEM</h1>
 				<h1 className="text-2xl font-bold navbar-center">{ page }</h1>
 				<div className="text-sm pr-2 navbar-end">{ playerName }</div>
