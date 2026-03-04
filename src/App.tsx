@@ -9,10 +9,10 @@ import { Navbar } from './components/Navbar';
 import { Dock } from './components/Dock';
 
 
-import { type GameResult, getGeneralFacts } from './functions/GameResults';
+import { type GameResult, getGeneralFacts, getLeaderboard } from './functions/GameResults';
 import './App.css'
 
-const myName = 'Hermione';
+const player = 'Hermione';
 const dummyGameResults: GameResult[] = [
 	{
 		winner: "Harry",
@@ -77,7 +77,7 @@ const App = () => {
 		gameResult,
 	]);
 
-	console.log(gameResults);
+
 
 	/*
 		Return JSX
@@ -86,13 +86,26 @@ const App = () => {
 		<>
 
 			<HashRouter>
-				<Navbar playerName={ myName } />
+				<Navbar playerName={ player } />
 
 				<Routes>
-					<Route path="/" element={ <Home  generalFacts={ getGeneralFacts(gameResults, myName) } /> } />
+					<Route path="/"
+						element={
+							<Home
+								generalFacts={ getGeneralFacts(gameResults, player) }
+								leaderboard={ getLeaderboard(gameResults) }
+								player={ player }
+							/>
+						} />
 					<Route path="/setup" element={ <Setup /> } />
 					<Route path="/play" element={ <Play addNewGameResult={ addNewGameResult } /> } />
-					<Route path="/leaderboard" element={ <Leaderboard /> } />
+					<Route path="/leaderboard"
+						element={
+							<Leaderboard
+								leaderboard={ getLeaderboard(gameResults) }
+								player={ player }
+							/>
+						} />
 				</Routes>
 
 				<Dock />
