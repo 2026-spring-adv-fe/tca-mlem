@@ -127,10 +127,10 @@ export const getLeaderboard = (games: GameResult[]): LeaderboardEntry[] => {
 	const leaderboard = getAllPlayers(games).map(player =>
 		({ ...getLeaderboardEntry(games, player) })
 	).sort((a, b) =>
-		b.ratio - a.ratio
-	).sort((a, b) =>
-		b.wins - a.wins
-	);
+        b.ratio - a.ratio ||
+        a.losses - b.losses ||
+        b.wins - a.wins
+    );
 
 	return leaderboard.map((player, i) =>
 		({ ...player, rank: i + 1 })
