@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 
-import type { GeneralFacts } from "../functions/GameResults";
+import { type GeneralFacts, type LeaderboardEntry } from "../functions/GameResults";
 
 
 /*
@@ -8,43 +8,56 @@ import type { GeneralFacts } from "../functions/GameResults";
 */
 type HomeProps = {
 	generalFacts: GeneralFacts
+	leaderboard: LeaderboardEntry[],
+	player: string,
 }
 
 
 /*
 	Home Component
 */
-export const Home: React.FC<HomeProps> = ({ generalFacts }) => {
+export const Home: React.FC<HomeProps> = ({ generalFacts, leaderboard, player }) => {
 	const nav = useNavigate();
 
-	console.log(generalFacts);
+	const leaderboardEntry = leaderboard.find(p => p.name == player)
+		|| {
+			name: player,
+			wins: 0,
+			losses: 0,
+			ratio: 0,
+			totalGames: 0,
+			rank: 'N/A'
+		};
+	;
 
 	return (
 		<>
 			<div className="mx-auto w-96">
-				<div className="p-4 pb-2 text-xs opacity-60 tracking-wide text-left">Win / Loss</div>
+				<div className="p-4 pb-2 text-xs opacity-60 tracking-wide grid grid-flow-col">
+					Leaderboard Stats <span className="text-right">Current Rank: { leaderboardEntry.rank }</span>
+				</div>
 			</div>
 			<div className="statsContainer text-center">
 				<div className="stats shadow-md w-96 overflow-hidden">
 
 					<div className="stat place-items-center">
 						<div className="stat-title">Wins</div>
-						<div className="stat-value">{ generalFacts.wins }</div>
+						<div className="stat-value">{ leaderboardEntry.wins }</div>
 					</div>
 
 					<div className="stat place-items-center">
 						<div className="stat-title">Losses</div>
-						<div className="stat-value text-secondary">{ generalFacts.losses }</div>
+						<div className="stat-value text-secondary">{ leaderboardEntry.losses }</div>
 					</div>
 
 					<div className="stat place-items-center">
 						<div className="stat-title">Ratio</div>
-						<div className="stat-value">{ generalFacts.ratio }</div>
+						<div className="stat-value">{ leaderboardEntry.ratio }</div>
 					</div>
 
 					<div className="stat place-items-center">
 						<div className="stat-title">Total Games</div>
-						<div className="stat-value">{ generalFacts.totalGames }</div>
+						<div className="stat-value">{ leaderboardEntry.totalGames }</div>
 					</div>
 				</div>
 			</div>
@@ -74,7 +87,7 @@ export const Home: React.FC<HomeProps> = ({ generalFacts }) => {
 
 			<div className="text-center mt-10">
 				<button
-					className="btn bg-purple-700 text-white w-96"
+					className="btn bg-purple-800 text-white w-96"
 					onClick={ () => nav('/setup') }
 				>
 					Setup a game
