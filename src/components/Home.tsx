@@ -82,6 +82,10 @@ export const Home: React.FC<HomeProps> = ({ generalFacts, leaderboard, player })
 					<li className="list-row text-lg">
 						Favorite Cat: <span className="text-right">{ generalFacts.favoriteCat }</span>
 					</li>
+
+					<li className="list-row text-lg">
+						Most Points: <span className="text-right">{ generalFacts.favoriteCat }</span>
+					</li>
 				</ul>
 			</div>
 
