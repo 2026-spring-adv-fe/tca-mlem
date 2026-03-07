@@ -2,10 +2,10 @@ import { useNavigate, useLocation } from "react-router";
 
 
 type NavbarProps = {
-	playerName: string
+	player: string
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ playerName }) => {
+export const Navbar: React.FC<NavbarProps> = ({ player }) => {
 	const nav = useNavigate();
 	const location = useLocation();
 	const path = location.pathname;
@@ -36,8 +36,12 @@ export const Navbar: React.FC<NavbarProps> = ({ playerName }) => {
 
 						<div className="drawer-side text-black">
 							<label htmlFor="my-drawer-1" aria-label="close sidebar" className="drawer-overlay"></label>
-							<ul className="menu bg-base-200 min-h-full w-80 p-4">
+							<ul className="menu bg-base-200 min-h-full w-60 p-4">
 								{/* Sidebar content here */}
+								<li className="text-end">Hello, { player }!</li>
+
+								<div className="divider my-1"></div>
+
 								<li className={ path == '/' ? 'bg-purple-900 text-white rounded-sm' : '' }
 									onClick={() => nav('/')}
 								>
