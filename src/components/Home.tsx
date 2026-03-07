@@ -32,7 +32,7 @@ export const Home: React.FC<HomeProps> = ({ generalFacts, leaderboard, player })
 
 	return (
 		<>
-			<div className="mx-auto w-96">
+			<div className="mx-auto w-96 mt-2">
 				<div className="p-4 pb-2 text-xs opacity-60 tracking-wide grid grid-flow-col">
 					Leaderboard Stats <span className="text-right">Current Rank: { leaderboardEntry.rank }</span>
 				</div>
