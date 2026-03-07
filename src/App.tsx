@@ -94,7 +94,6 @@ const App = () => {
 								generalFacts={ getGeneralFacts(gameResults, player) }
 								leaderboard={ getLeaderboard(gameResults) }
 								player={ player }
-								setPlayer={ setPlayer }
 							/>
 						} />
 					<Route path="/setup" element={ <Setup /> } />
