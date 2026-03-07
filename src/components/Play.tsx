@@ -26,13 +26,13 @@ export const Play: React.FC<PlayProps> = ({ addNewGameResult }) => {
 					addNewGameResult({
 						winner: 'Snape',
 						players: [
+							'Hermione',
 							'Snape',
 							'Dumbledore',
-							'Hermione',
 						],
 						chosenCats: [
 							{ player: 'Snape', cat: 'Chef' },
-							{ player: 'Dumbledore', cat: 'Captain' },
+							{ player: 'Dumbledore', cat: 'Explorer' },
 							{ player: 'Hermione', cat: 'Engineer' },
 						],
 						start: startTimestamp,
