@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { HashRouter, Routes, Route } from 'react-router';
 
+import { Welcome } from './components/Welcome';
 import { Home } from './components/Home';
 import { Setup } from './components/Setup';
 import { Play } from './components/Play';
@@ -11,7 +12,6 @@ import { Navbar } from './components/Navbar';
 import { type GameResult, getGeneralFacts, getLeaderboard } from './functions/GameResults';
 import './App.css'
 
-const player = 'Hermione';
 const dummyGameResults: GameResult[] = [
 	{
 		winner: "Harry",
@@ -66,6 +66,8 @@ const App = () => {
 		React Hooks
 	*/
 	const [gameResults, setGameResults] = useState(dummyGameResults);
+	const [player, setPlayer] = useState('');
+	console.log(player);
 
 
 	/*
@@ -83,10 +85,8 @@ const App = () => {
 	*/
 	return (
 		<>
-
 			<HashRouter>
 				<Navbar player={ player } />
-
 				<Routes>
 					<Route path="/"
 						element={
@@ -94,6 +94,7 @@ const App = () => {
 								generalFacts={ getGeneralFacts(gameResults, player) }
 								leaderboard={ getLeaderboard(gameResults) }
 								player={ player }
+								setPlayer={ setPlayer }
 							/>
 						} />
 					<Route path="/setup" element={ <Setup /> } />
@@ -108,6 +109,11 @@ const App = () => {
 				</Routes>
 			</HashRouter>
 
+			{/* Make sure theres a player */}
+			{ !player
+				? <Welcome setPlayer={ setPlayer }/>
+				: null
+			}
 		</>
 	)
 }
