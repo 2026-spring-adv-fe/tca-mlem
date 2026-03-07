@@ -1,4 +1,5 @@
 import { useNavigate, useLocation } from "react-router";
+import { useRef } from "react";
 
 
 type NavbarProps = {
@@ -9,6 +10,7 @@ export const Navbar: React.FC<NavbarProps> = ({ player }) => {
 	const nav = useNavigate();
 	const location = useLocation();
 	const path = location.pathname;
+	const drawerRef = useRef<HTMLInputElement>(null);
 
 	let page: string;
 
@@ -20,6 +22,19 @@ export const Navbar: React.FC<NavbarProps> = ({ player }) => {
 		default: page = 'Page Not Found'; break;
 	}
 
+
+	/*
+		Handles navigating to a new page and closing the nav drawer
+	*/
+	const go = (path: string) => {
+		nav(path);
+
+		// Close the drawer
+		if (drawerRef.current) {
+			drawerRef.current.checked = false;
+		}
+	}
+
 	return (
 		<>
 			<div className="navbar font-[Fira_Sans] bg-purple-900 text-white shadow-md">
@@ -28,14 +43,14 @@ export const Navbar: React.FC<NavbarProps> = ({ player }) => {
 
 				<div className="text-sm pr-2 navbar-end">
 					<div className="drawer drawer-end">
-						<input id="my-drawer-1" type="checkbox" className="drawer-toggle" />
+						<input id="navDrawer" ref={ drawerRef } type="checkbox" className="drawer-toggle" />
 
 						<div className="grid grid-flow-col items-center justify-items-end">
-							<label htmlFor="my-drawer-1" className="material-symbols-outlined drawer-button">dehaze</label>
+							<label htmlFor="navDrawer" className="material-symbols-outlined drawer-button">dehaze</label>
 						</div>
 
 						<div className="drawer-side text-black">
-							<label htmlFor="my-drawer-1" aria-label="close sidebar" className="drawer-overlay"></label>
+							<label htmlFor="navDrawer" aria-label="close sidebar" className="drawer-overlay"></label>
 							<ul className="menu bg-base-200 min-h-full w-60 p-4">
 								{/* Sidebar content here */}
 								<li className="text-end">Hello, { player }!</li>
@@ -43,19 +58,19 @@ export const Navbar: React.FC<NavbarProps> = ({ player }) => {
 								<div className="divider my-1"></div>
 
 								<li className={ path == '/' ? 'bg-purple-900 text-white rounded-sm' : '' }
-									onClick={() => nav('/')}
+									onClick={() => go('/') }
 								>
 									<a>My Stats</a>
 								</li>
 
 								<li className={ path == '/play' ? 'bg-purple-900 text-white rounded-sm' : '' }
-									onClick={() => nav('/play')}
+									onClick={() => go('/play') }
 								>
 									<a>Play</a>
 								</li>
 
 								<li className={ path == '/leaderboard' ? 'bg-purple-900 text-white rounded-sm' : '' }
-									onClick={() => nav('/leaderboard')}
+									onClick={() => go('/leaderboard') }
 								>
 									<a>Leaderboard</a>
 								</li>
