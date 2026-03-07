@@ -6,7 +6,7 @@ import { Home } from './components/Home';
 import { Setup } from './components/Setup';
 import { Play } from './components/Play';
 import { Leaderboard } from './components/Leaderboard';
-import { Navbar } from './components/Navbar';
+import { Navbar } from './components/navbar/Navbar';
 
 
 import { type GameResult, getGeneralFacts, getLeaderboard } from './functions/GameResults';
