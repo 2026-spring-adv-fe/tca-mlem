@@ -86,7 +86,7 @@ const App = () => {
 		<>
 
 			<HashRouter>
-				<Navbar playerName={ player } />
+				<Navbar player={ player } />
 
 				<Routes>
 					<Route path="/"
@@ -107,8 +107,6 @@ const App = () => {
 							/>
 						} />
 				</Routes>
-
-				<Dock />
 			</HashRouter>
 
 		</>
