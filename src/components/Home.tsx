@@ -105,8 +105,6 @@ export const Home: React.FC<HomeProps> = ({ generalFacts, leaderboard, player })
 					Setup a game
 				</button>
 			</div>
-
-			<div className="dockSpacer pb-15"></div>
 		</>
 	);
 }
