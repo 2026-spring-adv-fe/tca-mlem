@@ -38,7 +38,7 @@ export const Home: React.FC<HomeProps> = ({ generalFacts, leaderboard, player })
 				</div>
 			</div>
 			<div className="statsContainer text-center">
-				<div className="stats shadow-md w-96 overflow-hidden">
+				<div className="stats shadow-md w-96 overflow-hidden" onClick={ () => nav('/leaderboard') }>
 
 					<div className="stat place-items-center">
 						<div className="stat-title">Wins</div>
