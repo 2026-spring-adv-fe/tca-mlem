@@ -1,7 +1,6 @@
 import { Drawer } from "./Drawer";
 
 import { useNavigate, useLocation } from "react-router";
-import { useRef } from "react";
 
 
 type NavbarProps = {
