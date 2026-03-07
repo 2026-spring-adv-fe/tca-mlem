@@ -12,7 +12,6 @@ export const Navbar: React.FC<NavbarProps> = ({ player }) => {
 	const nav = useNavigate();
 	const location = useLocation();
 	const path = location.pathname;
-	const drawerRef = useRef<HTMLInputElement>(null);
 
 	let page: string;
 
@@ -22,19 +21,6 @@ export const Navbar: React.FC<NavbarProps> = ({ player }) => {
 		case '/play': page = 'Play'; break;
 		case '/leaderboard': page = 'Leaderboard'; break;
 		default: page = 'Page Not Found'; break;
-	}
-
-
-	/*
-		Handles navigating to a new page and closing the nav drawer
-	*/
-	const go = (path: string) => {
-		nav(path);
-
-		// Close the drawer
-		if (drawerRef.current) {
-			drawerRef.current.checked = false;
-		}
 	}
 
 	return (
