@@ -86,6 +86,14 @@ export const Home: React.FC<HomeProps> = ({ generalFacts, leaderboard, player })
 					<li className="list-row text-lg">
 						Most Points: <span className="text-right">{ generalFacts.favoriteCat }</span>
 					</li>
+
+					<li className="list-row text-lg">
+						Least Points: <span className="text-right">{ generalFacts.favoriteCat }</span>
+					</li>
+
+					<li className="list-row text-lg">
+						Reached the cosmos: <span className="text-right">{ generalFacts.favoriteCat } times</span>
+					</li>
 				</ul>
 			</div>
 
