@@ -33,22 +33,24 @@ export const Welcome: React.FC<WelcomeProps> = ({ setPlayer }) => {
 		<>
 			<dialog ref={dialogRef} className="modal">
 				<div className="modal-box">
-					<h3 className="font-bold text-lg">Who is playing today?</h3>
+					<form onSubmit={ () => closeModal() }>
+						<h3 className="font-bold text-lg">Who is playing today?</h3>
 
-					<input type="text" className="input mt-3 mb-1.5" placeholder="Name"
-						onChange={ (e) => updatePlayer(e.target.value) }
-					/>
-					<p className="text-xs text-grey">{
-						!player
-							? 'A name is required to use the companion'
-							: ''
-					}</p>
+						<input type="text" className="input mt-3 mb-1.5" placeholder="Name"
+							onChange={ (e) => updatePlayer(e.target.value) }
+						/>
+						<p className="text-xs text-grey">{
+							!player
+								? 'A name is required to use the companion'
+								: ''
+						}</p>
 
-					<button className="btn bg-purple-900 text-white mt-3"
-						onClick={ () => closeModal() }
-					>
-						Get Started
-					</button>
+						<button className="btn bg-purple-900 text-white mt-3"
+							onClick={ () => closeModal() }
+						>
+							Get Started
+						</button>
+					</form>
 				</div>
 
 			</dialog>
