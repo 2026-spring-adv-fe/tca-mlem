@@ -6,8 +6,7 @@ import { Home } from './components/Home';
 import { Setup } from './components/Setup';
 import { Play } from './components/Play';
 import { Leaderboard } from './components/Leaderboard';
-import { Navbar } from './components/Navbar';
-import { Dock } from './components/Dock';
+import { Navbar } from './components/navbar/Navbar';
 
 
 import { type GameResult, getGeneralFacts, getLeaderboard } from './functions/GameResults';
@@ -86,8 +85,7 @@ const App = () => {
 	return (
 		<>
 			<HashRouter>
-				<Navbar playerName={ player } />
-
+				<Navbar player={ player } />
 				<Routes>
 					{/* Home */}
 					<Route path="/"
@@ -118,10 +116,13 @@ const App = () => {
 							/>
 						} />
 				</Routes>
-
-				<Dock />
 			</HashRouter>
 
+			{/* Make sure theres a player */}
+			{ !player
+				? <Welcome setPlayer={ setPlayer }/>
+				: null
+			}
 		</>
 	)
 }

@@ -48,8 +48,6 @@ export const Leaderboard: React.FC<LeaderboardProps> = ({ leaderboard, player })
 					</tbody>
 				</table>
 			</div>
-
-			<div className="dockSpacer pb-15"></div>
 		</>
 	);
 }

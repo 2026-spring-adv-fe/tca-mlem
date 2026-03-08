@@ -32,13 +32,13 @@ export const Home: React.FC<HomeProps> = ({ generalFacts, leaderboard, player })
 
 	return (
 		<>
-			<div className="mx-auto w-96">
+			<div className="mx-auto w-96 mt-2">
 				<div className="p-4 pb-2 text-xs opacity-60 tracking-wide grid grid-flow-col">
 					Leaderboard Stats <span className="text-right">Current Rank: { leaderboardEntry.rank }</span>
 				</div>
 			</div>
 			<div className="statsContainer text-center">
-				<div className="stats shadow-md w-96 overflow-hidden">
+				<div className="stats shadow-md w-96 overflow-hidden" onClick={ () => nav('/leaderboard') }>
 
 					<div className="stat place-items-center">
 						<div className="stat-title">Wins</div>
@@ -82,6 +82,18 @@ export const Home: React.FC<HomeProps> = ({ generalFacts, leaderboard, player })
 					<li className="list-row text-lg">
 						Favorite Cat: <span className="text-right">{ generalFacts.favoriteCat }</span>
 					</li>
+
+					<li className="list-row text-lg">
+						Most Points: <span className="text-right">{ generalFacts.favoriteCat }</span>
+					</li>
+
+					<li className="list-row text-lg">
+						Least Points: <span className="text-right">{ generalFacts.favoriteCat }</span>
+					</li>
+
+					<li className="list-row text-lg">
+						Reached the cosmos: <span className="text-right">{ generalFacts.favoriteCat } times</span>
+					</li>
 				</ul>
 			</div>
 
@@ -93,8 +105,6 @@ export const Home: React.FC<HomeProps> = ({ generalFacts, leaderboard, player })
 					Setup a game
 				</button>
 			</div>
-
-			<div className="dockSpacer pb-15"></div>
 		</>
 	);
 }

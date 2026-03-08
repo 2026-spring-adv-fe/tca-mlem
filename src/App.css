@@ -1,12 +1,21 @@
 @import 'tailwindcss';
+
 @plugin "daisyui" {
 	themes: lofi --default, business --prefersdark;
 }
 
 .material-symbols-outlined {
 	font-variation-settings:
-    'FILL' 1,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24;
+		'FILL' 1,
+		'wght' 400,
+		'GRAD' 0,
+		'opsz' 24;
+}
+
+/*
+	Prevents daisy ui theme colors overriding chosen colors on click
+*/
+.menu li>*:active {
+	background-color: transparent !important;
+	color: inherit !important;
 }
