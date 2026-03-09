@@ -25,7 +25,17 @@ export const Navbar: React.FC<NavbarProps> = ({ player }) => {
 	return (
 		<>
 			<div className="navbar font-[Fira_Sans] bg-purple-900 text-white shadow-md">
-				<h1 className="text-xl pl-2 font-bold navbar-start">MLEM</h1>
+				<div className="navbar-start">
+					<button className="text-xl pl-2 font-bold"
+						onClick={ () => {
+							if (path != '/play') {
+								nav('/')
+							}
+						}}
+					>
+						MLEM
+					</button>
+				</div>
 				<h1 className="text-2xl font-bold navbar-center">{page}</h1>
 
 				<div className="text-sm pr-2 navbar-end">
