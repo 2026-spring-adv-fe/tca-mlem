@@ -115,6 +115,7 @@ const App = () => {
 						}
 					/>
 
+					{/* Page Not Found */}
 					<Route path="/pageNotFound" element={ <PageNotFound /> } />
 				</Routes>
 			</HashRouter>
