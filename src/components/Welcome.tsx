@@ -14,7 +14,9 @@ export const Welcome: React.FC<WelcomeProps> = ({ setPlayer }) => {
 	*/
 	const closeModal = () => {
 		if (player) {
-			setPlayer(player);
+			// Ensure player name is capitalized
+			const playerName = player.charAt(0).toUpperCase() + player.slice(1);
+			setPlayer(playerName);
 
 			// Close the modal
 			dialogRef.current?.close();
