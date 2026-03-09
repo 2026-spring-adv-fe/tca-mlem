@@ -9,7 +9,6 @@ import { Play } from './components/Play';
 import { Leaderboard } from './components/Leaderboard';
 import { PageNotFound } from './components/PageNotFound';
 
-
 import { type GameResult, getGeneralFacts, getLeaderboard } from './functions/GameResults';
 import './App.css'
 
@@ -77,7 +76,6 @@ const App = () => {
 		...gameResults,
 		gameResult,
 	]);
-
 
 
 	/*
