@@ -50,8 +50,6 @@ export const getGeneralFacts = (games: GameResult[], player: string): GeneralFac
 		: games
 	;
 
-	// console.log(playerGames);
-
 
 	// Return default values if the player hasn't played any games yet
     if (!playerGames.length) {

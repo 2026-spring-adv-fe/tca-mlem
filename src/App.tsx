@@ -67,7 +67,6 @@ const App = () => {
 	*/
 	const [gameResults, setGameResults] = useState(dummyGameResults);
 	const [player, setPlayer] = useState('');
-	console.log(player);
 
 
 	/*
