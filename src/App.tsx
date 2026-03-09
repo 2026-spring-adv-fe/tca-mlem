@@ -90,15 +90,11 @@ const App = () => {
 					{/* Home */}
 					<Route path="/"
 						element={
-							!player
-								? <Welcome
-									setPlayer={setPlayer}
-								/>
-								: <Home
-									generalFacts={ getGeneralFacts(gameResults, player) }
-									leaderboard={ getLeaderboard(gameResults) }
-									player={ player }
-								/>
+							<Home
+								generalFacts={ getGeneralFacts(gameResults, player) }
+								leaderboard={ getLeaderboard(gameResults) }
+								player={ player }
+							/>
 						} />
 
 					{/* Setup */}
