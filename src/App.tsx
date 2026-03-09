@@ -98,10 +98,20 @@ const App = () => {
 					/>
 
 					{/* Setup */}
-					<Route path="/setup" element={ <Setup /> } />
+					<Route path="/setup"
+						element={
+							<Setup />
+						}
+					/>
 
 					{/* Play */}
-					<Route path="/play" element={ <Play addNewGameResult={ addNewGameResult } /> } />
+					<Route path="/play"
+						element={
+							<Play
+								addNewGameResult={ addNewGameResult }
+							/>
+						}
+					/>
 
 					{/* Leaderboard */}
 					<Route path="/leaderboard"
@@ -114,7 +124,11 @@ const App = () => {
 					/>
 
 					{/* Page Not Found */}
-					<Route path="/pageNotFound" element={ <PageNotFound /> } />
+					<Route path="/pageNotFound"
+						element={
+							<PageNotFound />
+						}
+					/>
 				</Routes>
 			</HashRouter>
 
