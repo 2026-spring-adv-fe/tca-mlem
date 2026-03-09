@@ -51,7 +51,7 @@ export const Home: React.FC<HomeProps> = ({ generalFacts, leaderboard, player })
 					</div>
 
 					<div className="stat place-items-center">
-						<div className="stat-title">Ratio</div>
+						<div className="stat-title">W/L Ratio</div>
 						<div className="stat-value">{ leaderboardEntry.ratio }</div>
 					</div>
 

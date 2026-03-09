@@ -29,7 +29,7 @@ export type LeaderboardEntry = {
 	name:string;
 	wins: number;
 	losses: number;
-	ratio: number;
+	ratio: string;
 	totalGames: number;
 	rank : number;
 }
@@ -109,7 +109,7 @@ export const getLeaderboardEntry = (games: GameResult[], player: string): Leader
 		name: player,
 		wins: wins,
 		losses: totalGames - wins,
-		ratio: parseFloat((wins / totalGames).toFixed(2)),
+		ratio: (wins / totalGames).toFixed(2),
 		rank: 0,
 		totalGames: totalGames,
 	};
@@ -118,17 +118,18 @@ export const getLeaderboardEntry = (games: GameResult[], player: string): Leader
 
 /*
 	Gets all players and creates a leaderboard in order of
-		1. Win / Loss Ratio
-		2. Wins
+		1. Wins
+		2. Win / Loss Ratio
+		3. Losses
 */
 export const getLeaderboard = (games: GameResult[]): LeaderboardEntry[] => {
 	const leaderboard = getAllPlayers(games).map(player =>
 		({ ...getLeaderboardEntry(games, player) })
 	).sort((a, b) =>
-		b.ratio - a.ratio
-	).sort((a, b) =>
-		b.wins - a.wins
-	);
+        b.wins - a.wins ||
+		parseFloat(b.ratio) - parseFloat(a.ratio) ||
+        a.losses - b.losses
+    );
 
 	return leaderboard.map((player, i) =>
 		({ ...player, rank: i + 1 })

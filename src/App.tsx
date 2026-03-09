@@ -21,9 +21,9 @@ const dummyGameResults: GameResult[] = [
 			"Ron",
 		],
 		chosenCats: [
-			{ player: 'Harry', cat: 'chef' },
+			{ player: 'Harry', cat: 'Chef' },
 			{ player: 'Hermione', cat: 'Engineer' },
-			{ player: 'Ron', cat: 'explorer' }
+			{ player: 'Ron', cat: 'Explorer' }
 		],
 		start: "2026-02-01T18:53:59.078Z",
 		end: "2026-02-01T19:27:59.078Z",
@@ -36,9 +36,9 @@ const dummyGameResults: GameResult[] = [
 			"Ron",
 		],
 		chosenCats: [
-			{ player: 'Harry', cat: 'chef' },
+			{ player: 'Harry', cat: 'Chef' },
 			{ player: 'Hermione', cat: 'Captain' },
-			{ player: 'Ron', cat: 'explorer' }
+			{ player: 'Ron', cat: 'Explorer' }
 		],
 		start: "2026-01-15T22:07:59.078Z",
 		end: "2026-01-15T23:01:59.078Z",
@@ -51,9 +51,9 @@ const dummyGameResults: GameResult[] = [
 			"Ron",
 		],
 		chosenCats: [
-			{ player: 'Snape', cat: 'chef' },
+			{ player: 'Snape', cat: 'Chef' },
 			{ player: 'Hermione', cat: 'Captain' },
-			{ player: 'Ron', cat: 'explorer' }
+			{ player: 'Ron', cat: 'Explorer' }
 		],
 		start: "2026-02-12T22:07:59.078Z",
 		end: "2026-02-12T23:09:15.078Z",
@@ -87,16 +87,27 @@ const App = () => {
 			<HashRouter>
 				<Navbar player={ player } />
 				<Routes>
+					{/* Home */}
 					<Route path="/"
 						element={
-							<Home
-								generalFacts={ getGeneralFacts(gameResults, player) }
-								leaderboard={ getLeaderboard(gameResults) }
-								player={ player }
-							/>
+							!player
+								? <Welcome
+									setPlayer={setPlayer}
+								/>
+								: <Home
+									generalFacts={ getGeneralFacts(gameResults, player) }
+									leaderboard={ getLeaderboard(gameResults) }
+									player={ player }
+								/>
 						} />
+
+					{/* Setup */}
 					<Route path="/setup" element={ <Setup /> } />
+
+					{/* Play */}
 					<Route path="/play" element={ <Play addNewGameResult={ addNewGameResult } /> } />
+
+					{/* Leaderboard */}
 					<Route path="/leaderboard"
 						element={
 							<Leaderboard

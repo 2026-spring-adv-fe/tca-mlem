@@ -54,7 +54,6 @@ export const Welcome: React.FC<WelcomeProps> = ({ setPlayer }) => {
 						</button>
 					</form>
 				</div>
-
 			</dialog>
 		</>
 	);
