@@ -1,19 +1,26 @@
+import { useNavigate, useLocation } from "react-router";
+import { useEffect } from "react";
 import { Drawer } from "./Drawer";
 
-import { useNavigate, useLocation } from "react-router";
 
-
+/*
+	Navbar props
+*/
 type NavbarProps = {
 	player: string
 }
 
+
+/*
+	Navbar Component
+*/
 export const Navbar: React.FC<NavbarProps> = ({ player }) => {
 	const nav = useNavigate();
 	const location = useLocation();
 	const path = location.pathname;
 
+	// ! Set page title here to avoid prop drilling / exporting
 	let page: string;
-
 	switch (path) {
 		case '/': page = 'My Stats'; break;
 		case '/setup': page = 'Setup'; break;
@@ -21,6 +28,14 @@ export const Navbar: React.FC<NavbarProps> = ({ player }) => {
 		case '/leaderboard': page = 'Leaderboard'; break;
 		default: page = 'Page Not Found'; break;
 	}
+
+
+	// Direct to the PageNotFound component when trying to access an unused path
+	useEffect(() => {
+		if (page == 'Page Not Found') {
+			nav('/pageNotFound');
+		}
+	}, [page, nav]);
 
 	return (
 		<>
@@ -36,7 +51,7 @@ export const Navbar: React.FC<NavbarProps> = ({ player }) => {
 						MLEM
 					</button>
 				</div>
-				<h1 className="text-2xl font-bold navbar-center">{page}</h1>
+				<h1 className="text-2xl font-bold navbar-center">{ page }</h1>
 
 				<div className="text-sm pr-2 navbar-end">
 					{ path == '/play'

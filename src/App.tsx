@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { HashRouter, Routes, Route } from 'react-router';
 
+import { Navbar } from './components/navbar/Navbar';
 import { Welcome } from './components/Welcome';
 import { Home } from './components/Home';
 import { Setup } from './components/Setup';
 import { Play } from './components/Play';
 import { Leaderboard } from './components/Leaderboard';
-import { Navbar } from './components/navbar/Navbar';
+import { PageNotFound } from './components/PageNotFound';
 
 
 import { type GameResult, getGeneralFacts, getLeaderboard } from './functions/GameResults';
@@ -95,7 +96,8 @@ const App = () => {
 								leaderboard={ getLeaderboard(gameResults) }
 								player={ player }
 							/>
-						} />
+						}
+					/>
 
 					{/* Setup */}
 					<Route path="/setup" element={ <Setup /> } />
@@ -110,7 +112,10 @@ const App = () => {
 								leaderboard={ getLeaderboard(gameResults) }
 								player={ player }
 							/>
-						} />
+						}
+					/>
+
+					<Route path="/pageNotFound" element={ <PageNotFound /> } />
 				</Routes>
 			</HashRouter>
 
