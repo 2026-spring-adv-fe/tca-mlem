@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 type DrawerProps = {
 	player: string,
