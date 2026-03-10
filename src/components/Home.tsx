@@ -47,7 +47,7 @@ export const Home: React.FC<HomeProps> = ({ generalFacts, leaderboard, player })
 
 					<div className="stat place-items-center">
 						<div className="stat-title">Losses</div>
-						<div className="stat-value text-secondary">{ leaderboardEntry.losses }</div>
+						<div className="stat-value">{ leaderboardEntry.losses }</div>
 					</div>
 
 					<div className="stat place-items-center">
@@ -65,8 +65,8 @@ export const Home: React.FC<HomeProps> = ({ generalFacts, leaderboard, player })
 			<div className="mx-auto w-96 mt-5">
 				<div className="p-4 pb-2 text-xs opacity-60 tracking-wide text-left">Game Stats</div>
 			</div>
-			<div className="card bg-base-100 w-96 shadow-md mx-auto">
-				<ul className="list bg-base-100 rounded-box shadow-md">
+			<div className="card w-96 shadow-md mx-auto">
+				<ul className="list rounded-box shadow-md">
 					<li className="list-row text-lg">
 						Last Played: <span className="text-right">{ generalFacts.lastPlayed }</span>
 					</li>
@@ -99,7 +99,7 @@ export const Home: React.FC<HomeProps> = ({ generalFacts, leaderboard, player })
 
 			<div className="text-center mt-10">
 				<button
-					className="btn bg-purple-800 text-white w-96"
+					className="btn bg-purple-800 border-purple-800 text-white w-96"
 					onClick={ () => nav('/setup') }
 				>
 					Setup a game

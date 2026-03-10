@@ -1,5 +1,7 @@
 import { useNavigate, useLocation } from "react-router";
 import { useEffect } from "react";
+
+import { Welcome } from "../Welcome";
 import { Drawer } from "./Drawer";
 
 
@@ -8,13 +10,15 @@ import { Drawer } from "./Drawer";
 */
 type NavbarProps = {
 	player: string
+	setPlayer: (p: string) => void,
+	setTheme: (t: string) => void,
 }
 
 
 /*
 	Navbar Component
 */
-export const Navbar: React.FC<NavbarProps> = ({ player }) => {
+export const Navbar: React.FC<NavbarProps> = ({ player, setPlayer, setTheme }) => {
 	const nav = useNavigate();
 	const location = useLocation();
 	const path = location.pathname;
@@ -39,8 +43,13 @@ export const Navbar: React.FC<NavbarProps> = ({ player }) => {
 
 	return (
 		<>
-			<div className="navbar font-[Fira_Sans] bg-purple-900 text-white shadow-md">
-				<div className="navbar-start">
+			{ !player && page !== 'Page Not Found'
+				? <Welcome setPlayer={ setPlayer } />
+				: null
+			}
+
+			<div className="navbar font-[Fira_Sans] bg-purple-900 shadow-md">
+				<div className="navbar-start text-white">
 					<button className="text-xl pl-2 font-bold"
 						onClick={ () => {
 							if (path != '/play') {
@@ -51,14 +60,18 @@ export const Navbar: React.FC<NavbarProps> = ({ player }) => {
 						MLEM
 					</button>
 				</div>
-				<h1 className="text-2xl font-bold navbar-center">{ page }</h1>
+				<h1 className="text-2xl font-bold navbar-center text-white">{ page }</h1>
 
 				<div className="text-sm pr-2 navbar-end">
 					{ path == '/play'
 						? <button className="btn bg-red-600 border-red-600 text-white" onClick={ () => nav('/') } >
 							Abort Game
 						</button>
-						: <Drawer player={ player } path={ path } />
+						: <Drawer
+							player={ player }
+							path={ path }
+							setTheme={ setTheme }
+						/>
 					}
 				</div>
 			</div>

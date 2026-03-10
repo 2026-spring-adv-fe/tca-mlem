@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { HashRouter, Routes, Route } from 'react-router';
 
 import { Navbar } from './components/navbar/Navbar';
-import { Welcome } from './components/Welcome';
 import { Home } from './components/Home';
 import { Setup } from './components/Setup';
 import { Play } from './components/Play';
@@ -67,6 +66,7 @@ const App = () => {
 	*/
 	const [gameResults, setGameResults] = useState(dummyGameResults);
 	const [player, setPlayer] = useState('');
+	const [theme, setTheme] = useState('lofi');
 
 
 	/*
@@ -78,13 +78,19 @@ const App = () => {
 	]);
 
 
+
 	/*
 		Return JSX
 	*/
 	return (
 		<>
+		<div className="min-h-screen" data-theme={ theme }>
 			<HashRouter>
-				<Navbar player={ player } />
+				<Navbar
+					player={ player }
+					setPlayer={ setPlayer }
+					setTheme={ setTheme }
+				/>
 				<Routes>
 					{/* Home */}
 					<Route path="/"
@@ -131,12 +137,7 @@ const App = () => {
 					/>
 				</Routes>
 			</HashRouter>
-
-			{/* Make sure theres a player */}
-			{ !player
-				? <Welcome setPlayer={ setPlayer }/>
-				: null
-			}
+		</div>
 		</>
 	)
 }
