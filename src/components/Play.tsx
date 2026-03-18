@@ -19,25 +19,25 @@ type PlayProps = {
 export const Play: React.FC<PlayProps> = ({ addNewGameResult }) => {
 	const nav = useNavigate();
 	const [startTimestamp] = useState(new Date().toISOString());
-	const [slide, setSlide] = useState(1);
+	const [page, setPage] = useState(1);
 
 	const players = [
-		{ name: 'Austin' },
-		{ name: 'Avery' },
-		{ name: 'Inari' },
-		{ name: 'Simba' },
-		{ name: 'Aubie' },
+		{ name: 'Austin', page: 1 },
+		{ name: 'Avery', page: 2 },
+		{ name: 'Inari', page: 3 },
+		{ name: 'Simba', page: 4 },
+		{ name: 'Aubie', page: 5 },
 	];
 
 	return (
 		<>
 		<div className="grid grid-flow-col w-full gap-2 py-2 text-center">
-			<button onClick={ () => setSlide(slide - 1) }
+			<button onClick={ () => setPage(page - 1) }
 				className={ clsx(
 					"material-symbols-outlined btn btn-ghost btn-xs ml-1 justify-self-start",
-					slide <= 1 && '!btn-disabled'
+					page <= 1 && '!btn-disabled'
 				)}
-				disabled={ slide <= 1 }
+				disabled={ page <= 1 }
 			>
 				arrow_back_ios_new
 			</button>
@@ -47,7 +47,7 @@ export const Play: React.FC<PlayProps> = ({ addNewGameResult }) => {
 				<h1
 					className={ clsx(
 						"text-lg",
-						slide != i + 1 && 'hidden'
+						page != player.page && 'hidden'
 					)}
 					key={player.name}
 				>
@@ -55,12 +55,12 @@ export const Play: React.FC<PlayProps> = ({ addNewGameResult }) => {
 				</h1>
 			)}
 
-			<button onClick={ () => setSlide(slide + 1) }
+			<button onClick={ () => setPage(page + 1) }
 				className={clsx(
 					"material-symbols-outlined btn btn-ghost btn-xs mr-1 justify-self-end",
-					slide >= players.length && '!btn-disabled'
+					page >= players.length && '!btn-disabled'
 				)}
-				disabled={ slide >= 5 }
+				disabled={ page >= 5 }
 			>
 				arrow_forward_ios
 			</button>
@@ -71,7 +71,7 @@ export const Play: React.FC<PlayProps> = ({ addNewGameResult }) => {
 				<div
 					className={ clsx(
 						'carousel-item w-full',
-						slide != 1 && 'hidden'
+						page != 1 && 'hidden'
 					)}
 				>
 					<img
@@ -81,7 +81,7 @@ export const Play: React.FC<PlayProps> = ({ addNewGameResult }) => {
 				<div
 					className={ clsx(
 						'carousel-item w-full',
-						slide != 2 && 'hidden'
+						page != 2 && 'hidden'
 					)}
 				>
 					<img
@@ -91,7 +91,7 @@ export const Play: React.FC<PlayProps> = ({ addNewGameResult }) => {
 				<div
 					className={ clsx(
 						'carousel-item w-full',
-						slide != 3 && 'hidden'
+						page != 3 && 'hidden'
 					)}
 				>
 					<img
@@ -101,7 +101,7 @@ export const Play: React.FC<PlayProps> = ({ addNewGameResult }) => {
 				<div
 					className={ clsx(
 						'carousel-item w-full',
-						slide != 4 && 'hidden'
+						page != 4 && 'hidden'
 					)}
 				>
 					<img
@@ -111,10 +111,10 @@ export const Play: React.FC<PlayProps> = ({ addNewGameResult }) => {
 				<div
 					className={ clsx(
 						'carousel-item w-full',
-						slide != 5 && 'hidden'
+						page != 5 && 'hidden'
 					)}
 				>
-					Slide 5
+					page 5
 				</div>
 			</div>
 
