@@ -1,13 +1,15 @@
 import { useNavigate } from "react-router";
 import { useRef } from "react";
+import localforage from "localforage";
 
 type DrawerProps = {
 	player: string,
 	path: string,
+	theme: string,
 	setTheme: (t: string) => void,
 }
 
-export const Drawer: React.FC<DrawerProps> = ({ player, path, setTheme }) => {
+export const Drawer: React.FC<DrawerProps> = ({ player, path, theme, setTheme }) => {
 	const nav = useNavigate();
 	const drawerRef = useRef<HTMLInputElement>(null);
 
@@ -24,17 +26,6 @@ export const Drawer: React.FC<DrawerProps> = ({ player, path, setTheme }) => {
 		}
 	}
 
-	/*
-		Update theme
-	*/
-	const changeTheme = (darkMode: boolean) => {
-		console.log(darkMode);
-		if (darkMode === true) {
-			setTheme('business');
-		} else {
-			setTheme('lofi');
-		}
-	}
 
 	return (
 		<>
@@ -51,14 +42,24 @@ export const Drawer: React.FC<DrawerProps> = ({ player, path, setTheme }) => {
 					{/* Sidebar content here */}
 					<li className="flex flex-row justify-between items-center">
 						<label className="swap swap-rotate">
-							{/* this hidden checkbox controls the state */}
-							<input type="checkbox" onChange={ (e) => changeTheme(e.target.checked) }/>
+							{/* Store theme in local storage */}
+							<input type="checkbox"
+								onClick={ async () => {
+									const result = await localforage.setItem<string>(
+										'theme',
+										theme === 'lofi' ? 'business' : 'lofi'
+									);
+
+									setTheme(result);
+								}}
+								checked={ theme == 'business' }
+							/>
 
 							{/* sun icon */}
-							<span className="swap-on material-symbols-outlined">sunny</span>
+							<span className="material-symbols-outlined swap-on">sunny</span>
 
 							{/* moon icon */}
-							<span className="swap-off material-symbols-outlined">bedtime</span>
+							<span className="material-symbols-outlined swap-off">bedtime</span>
 						</label>
 						<div className="">Hello, { player }!</div>
 					</li>

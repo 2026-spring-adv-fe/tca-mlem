@@ -9,8 +9,9 @@ import { Drawer } from "./Drawer";
 	Navbar props
 */
 type NavbarProps = {
-	player: string
+	player: string,
 	setPlayer: (p: string) => void,
+	theme: string,
 	setTheme: (t: string) => void,
 }
 
@@ -18,7 +19,7 @@ type NavbarProps = {
 /*
 	Navbar Component
 */
-export const Navbar: React.FC<NavbarProps> = ({ player, setPlayer, setTheme }) => {
+export const Navbar: React.FC<NavbarProps> = ({ player, setPlayer, theme, setTheme }) => {
 	const nav = useNavigate();
 	const location = useLocation();
 	const path = location.pathname;
@@ -70,6 +71,7 @@ export const Navbar: React.FC<NavbarProps> = ({ player, setPlayer, setTheme }) =
 						: <Drawer
 							player={ player }
 							path={ path }
+							theme={ theme }
 							setTheme={ setTheme }
 						/>
 					}

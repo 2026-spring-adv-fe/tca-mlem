@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HashRouter, Routes, Route } from 'react-router';
 
 import { Navbar } from './components/navbar/Navbar';
@@ -10,6 +10,7 @@ import { PageNotFound } from './components/PageNotFound';
 
 import { type GameResult, getGeneralFacts, getLeaderboard } from './functions/GameResults';
 import './App.css'
+import localforage from 'localforage';
 
 const dummyGameResults: GameResult[] = [
 	{
@@ -66,7 +67,24 @@ const App = () => {
 	*/
 	const [gameResults, setGameResults] = useState(dummyGameResults);
 	const [player, setPlayer] = useState('');
-	const [theme, setTheme] = useState('lofi');
+	const [theme, setTheme] = useState('');
+
+	useEffect(() => {
+		const loadTheme = async () => {
+			const result = await localforage.getItem<string>('theme') ?? 'lofi';
+
+			if (!ignore) {
+				setTheme(result);
+			}
+		}
+
+		let ignore = false;
+		loadTheme()
+
+		return () => {
+			ignore = true;
+		}
+	}, []);
 
 
 	/*
@@ -76,7 +94,6 @@ const App = () => {
 		...gameResults,
 		gameResult,
 	]);
-
 
 
 	/*
@@ -89,8 +106,10 @@ const App = () => {
 				<Navbar
 					player={ player }
 					setPlayer={ setPlayer }
+					theme={ theme }
 					setTheme={ setTheme }
 				/>
+
 				<Routes>
 					{/* Home */}
 					<Route path="/"
