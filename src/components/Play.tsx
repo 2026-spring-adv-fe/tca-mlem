@@ -33,7 +33,10 @@ export const Play: React.FC<PlayProps> = ({ addNewGameResult }) => {
 		<>
 		<div className="grid grid-flow-col w-full gap-2 py-2 text-center">
 			<button onClick={ () => setSlide(slide - 1) }
-				className="material-symbols-outlined btn btn-ghost btn-xs ml-1 justify-self-start"
+				className={ clsx(
+					"material-symbols-outlined btn btn-ghost btn-xs ml-1 justify-self-start",
+					slide <= 1 && '!btn-disabled'
+				)}
 				disabled={ slide <= 1 }
 			>
 				arrow_back_ios_new
@@ -46,13 +49,17 @@ export const Play: React.FC<PlayProps> = ({ addNewGameResult }) => {
 						"text-lg",
 						slide != i + 1 && 'hidden'
 					)}
+					key={player.name}
 				>
 					{ player.name }
 				</h1>
 			)}
 
 			<button onClick={ () => setSlide(slide + 1) }
-				className="material-symbols-outlined btn btn-ghost btn-xs mr-1 justify-self-end"
+				className={clsx(
+					"material-symbols-outlined btn btn-ghost btn-xs mr-1 justify-self-end",
+					slide >= players.length && '!btn-disabled'
+				)}
 				disabled={ slide >= 5 }
 			>
 				arrow_forward_ios
