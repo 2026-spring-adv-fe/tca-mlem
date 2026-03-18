@@ -44,7 +44,7 @@ export const Drawer: React.FC<DrawerProps> = ({ player, path, theme, setTheme })
 						<label className="swap swap-rotate">
 							{/* Store theme in local storage */}
 							<input type="checkbox"
-								onClick={ async () => {
+								onChange={ async () => {
 									const result = await localforage.setItem<string>(
 										'theme',
 										theme === 'lofi' ? 'business' : 'lofi'
