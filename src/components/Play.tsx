@@ -21,10 +21,43 @@ export const Play: React.FC<PlayProps> = ({ addNewGameResult }) => {
 	const [startTimestamp] = useState(new Date().toISOString());
 	const [slide, setSlide] = useState(1);
 
+	const players = [
+		{ name: 'Austin' },
+		{ name: 'Avery' },
+		{ name: 'Inari' },
+		{ name: 'Simba' },
+		{ name: 'Aubie' },
+	];
+
 	return (
 		<>
-		<h1>Play</h1>
+		<div className="grid grid-flow-col w-full gap-2 py-2 text-center">
+			<button onClick={ () => setSlide(slide - 1) }
+				className="material-symbols-outlined btn btn-ghost btn-xs ml-1 justify-self-start"
+				disabled={ slide <= 1 }
+			>
+				arrow_back_ios_new
+			</button>
 
+			{/* Player Names */}
+			{ players.map((player, i) =>
+				<h1
+					className={ clsx(
+						"text-lg",
+						slide != i + 1 && 'hidden'
+					)}
+				>
+					{ player.name }
+				</h1>
+			)}
+
+			<button onClick={ () => setSlide(slide + 1) }
+				className="material-symbols-outlined btn btn-ghost btn-xs mr-1 justify-self-end"
+				disabled={ slide >= 5 }
+			>
+				arrow_forward_ios
+			</button>
+		</div>
 
 		<div className="text-center">
 			<div className="carousel w-96">
@@ -78,26 +111,6 @@ export const Play: React.FC<PlayProps> = ({ addNewGameResult }) => {
 				</div>
 			</div>
 
-			<div className="flex w-full justify-center gap-2 py-2">
-
-				<button onClick={ () => setSlide(slide - 1) }
-					className={ clsx(
-						"btn btn-xs material-symbols-outlined",
-						slide <= 1 && '!hidden'
-					)}
-				>
-					arrow_back_ios
-				</button>
-				<button onClick={ () => setSlide(slide + 1) }
-					className={ clsx(
-						"btn btn-xs material-symbols-outlined",
-						slide >= 5 && '!hidden'
-					)}
-				>
-					arrow_forward_ios
-				</button>
-
-			</div>
 			<button className="btn btn-primary btn-outline"
 				onClick={() => {
 					addNewGameResult({
