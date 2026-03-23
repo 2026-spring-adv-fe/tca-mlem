@@ -121,6 +121,7 @@ export const getLeaderboardEntry = (games: GameResult[], player: string): Leader
 		1. Wins
 		2. Win / Loss Ratio
 		3. Losses
+		4. Total games
 */
 export const getLeaderboard = (games: GameResult[]): LeaderboardEntry[] => {
 	const leaderboard = getAllPlayers(games).map(player =>
@@ -128,7 +129,8 @@ export const getLeaderboard = (games: GameResult[]): LeaderboardEntry[] => {
 	).sort((a, b) =>
         b.wins - a.wins ||
 		parseFloat(b.ratio) - parseFloat(a.ratio) ||
-        a.losses - b.losses
+        a.losses - b.losses ||
+		a.totalGames - b.totalGames
     );
 
 	return leaderboard.map((player, i) =>
