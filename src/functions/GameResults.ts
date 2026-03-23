@@ -140,17 +140,9 @@ export const getLeaderboard = (games: GameResult[]): LeaderboardEntry[] => {
 
 
 /*
-	Helper functions
+	Gets all players to have played previously
 */
-
-const formatGameDuration = durationFormatter<string> ({});
-const formatLastPlayed = durationFormatter<string> ({
-	allowMultiples: ['y', 'mo', 'd', 'h', 'm'],
-	keepNonLeadingZeroes: false
-});
-
-
-const getAllPlayers = (games: GameResult[]) => {
+export const getAllPlayers = (games: GameResult[]) => {
 	const allPlayers = games.flatMap(game =>
 		game.players
 	).sort((a, b) =>
@@ -161,3 +153,15 @@ const getAllPlayers = (games: GameResult[]) => {
 
 	return Array.from(players);
 }
+
+
+/*
+	Helper functions
+*/
+
+const formatGameDuration = durationFormatter<string> ({});
+const formatLastPlayed = durationFormatter<string> ({
+	allowMultiples: ['y', 'mo', 'd', 'h', 'm'],
+	keepNonLeadingZeroes: false
+});
+

@@ -2,6 +2,8 @@
 import { useNavigate } from "react-router";
 import { useState } from "react";
 
+import { getAllPlayers } from "../functions/GameResults";
+
 // NPM
 import clsx from "clsx";
 
@@ -18,22 +20,27 @@ type Players = {
 */
 type SetupProps = {
 	player: string,
-	setPlayers: (players: Player[]) => void,
+	allPlayers: string[],
+	setCurrentPlayers: (players: Player[]) => void,
 }
 
 /*
 	Setup Component
+
+	TODO: Checklist of all previous players? (Get Players from gameResults.players)
 */
-export const Setup: React.FC<SetupProps> = ({ player, setPlayers }) => {
+export const Setup: React.FC<SetupProps> = ({ player, allPlayers, setCurrentPlayers }) => {
 	const nav = useNavigate();
+
+	console.log(allPlayers);
 
 	const [setupPage, setSetupPage] = useState(1);
 	const [setupComplete, setSetupComplete] = useState(true);
 
-	const updatePlayers = () => {
-		setPlayers([
-			{ name: 'Austin', page: 1 },
-			{ name: 'Avery', page: 2 },
+	const updateCurrentPlayers = () => {
+		setCurrentPlayers([
+			{ name: 'Snape', page: 1 },
+			{ name: 'Hermione', page: 2 },
 		]);
 
 		nav('/play');
@@ -54,7 +61,7 @@ export const Setup: React.FC<SetupProps> = ({ player, setPlayers }) => {
 
 		<div className="controls text-center">
 			{ setupComplete
-				? <button className="btn btn-primary btn-outline" onClick={ updatePlayers }>Play Game</button>
+				? <button className="btn btn-primary btn-outline" onClick={ updateCurrentPlayers }>Play Game</button>
 				: <button className="btn bg-purple-800 mx-auto my-5" onClick={ () => setSetupPage(setupPage + 1) }>Next</button>
 			}
 		</div>

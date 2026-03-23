@@ -11,7 +11,7 @@ import { Leaderboard } from './components/Leaderboard';
 import { PageNotFound } from './components/PageNotFound';
 
 // Types
-import { type GameResult, getGeneralFacts, getLeaderboard } from './functions/GameResults';
+import { type GameResult, getAllPlayers, getGeneralFacts, getLeaderboard } from './functions/GameResults';
 import type { Player } from './components/Play';
 
 // NPM
@@ -79,7 +79,7 @@ const App = () => {
 	*/
 	const [gameResults, setGameResults] = useState(dummyGameResults);
 	const [player, setPlayer] = useState('');
-	const [players, setPlayers] = useState<Player[]>([]);
+	const [currentPlayers, setCurrentPlayers] = useState<Player[]>([]);
 	const [theme, setTheme] = useState('');
 
 	useEffect(() => {
@@ -140,7 +140,8 @@ const App = () => {
 						element={
 							<Setup
 								player={ player }
-								setPlayers={ setPlayers }
+								allPlayers={ getAllPlayers(gameResults) }
+								setCurrentPlayers={ setCurrentPlayers }
 							/>
 						}
 					/>
@@ -149,7 +150,7 @@ const App = () => {
 					<Route path="/play"
 						element={
 							<Play
-								players={ players }
+								currentPlayers={ currentPlayers }
 								addNewGameResult={ addNewGameResult }
 							/>
 						}
