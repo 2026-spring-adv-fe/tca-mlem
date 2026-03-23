@@ -1,6 +1,8 @@
+// React
 import { useEffect, useState } from 'react';
 import { HashRouter, Routes, Route } from 'react-router';
 
+// Components
 import { Navbar } from './components/navbar/Navbar';
 import { Home } from './components/Home';
 import { Setup } from './components/Setup';
@@ -8,10 +10,20 @@ import { Play } from './components/Play';
 import { Leaderboard } from './components/Leaderboard';
 import { PageNotFound } from './components/PageNotFound';
 
+// Types
 import { type GameResult, getGeneralFacts, getLeaderboard } from './functions/GameResults';
-import './App.css'
+import type { Player } from './components/Play';
+
+// NPM
 import localforage from 'localforage';
 
+// CSS
+import './App.css'
+
+
+/*
+	Javascript
+*/
 const dummyGameResults: GameResult[] = [
 	{
 		winner: "Harry",
@@ -67,6 +79,7 @@ const App = () => {
 	*/
 	const [gameResults, setGameResults] = useState(dummyGameResults);
 	const [player, setPlayer] = useState('');
+	const [players, setPlayers] = useState<Player[]>([]);
 	const [theme, setTheme] = useState('');
 
 	useEffect(() => {
@@ -125,7 +138,10 @@ const App = () => {
 					{/* Setup */}
 					<Route path="/setup"
 						element={
-							<Setup />
+							<Setup
+								player={ player }
+								setPlayers={ setPlayers }
+							/>
 						}
 					/>
 
@@ -133,6 +149,7 @@ const App = () => {
 					<Route path="/play"
 						element={
 							<Play
+								players={ players }
 								addNewGameResult={ addNewGameResult }
 							/>
 						}

@@ -7,27 +7,28 @@ import type { GameResult } from "../functions/GameResults";
 
 
 /*
+	Represents a player
+*/
+export type Player = {
+	name: string,
+	page: number,
+}
+
+/*
 	Play Props
 */
 type PlayProps = {
+	players: Player[],
 	addNewGameResult: (g: GameResult) => void,
 }
 
 /*
 	Play Component
 */
-export const Play: React.FC<PlayProps> = ({ addNewGameResult }) => {
+export const Play: React.FC<PlayProps> = ({ players, addNewGameResult }) => {
 	const nav = useNavigate();
 	const [startTimestamp] = useState(new Date().toISOString());
 	const [page, setPage] = useState(1);
-
-	const players = [
-		{ name: 'Austin', page: 1 },
-		{ name: 'Avery', page: 2 },
-		{ name: 'Inari', page: 3 },
-		{ name: 'Simba', page: 4 },
-		{ name: 'Aubie', page: 5 },
-	];
 
 	return (
 		<>
