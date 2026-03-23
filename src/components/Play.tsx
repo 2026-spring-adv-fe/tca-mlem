@@ -18,14 +18,14 @@ export type Player = {
 	Play Props
 */
 type PlayProps = {
-	players: Player[],
+	currentPlayers: Player[],
 	addNewGameResult: (g: GameResult) => void,
 }
 
 /*
 	Play Component
 */
-export const Play: React.FC<PlayProps> = ({ players, addNewGameResult }) => {
+export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) => {
 	const nav = useNavigate();
 	const [startTimestamp] = useState(new Date().toISOString());
 	const [page, setPage] = useState(1);
@@ -44,7 +44,7 @@ export const Play: React.FC<PlayProps> = ({ players, addNewGameResult }) => {
 			</button>
 
 			{/* Player Names */}
-			{ players.map((player, i) =>
+			{ currentPlayers.map((player, i) =>
 				<h1
 					className={ clsx(
 						"text-lg",
@@ -59,7 +59,7 @@ export const Play: React.FC<PlayProps> = ({ players, addNewGameResult }) => {
 			<button onClick={ () => setPage(page + 1) }
 				className={clsx(
 					"material-symbols-outlined btn btn-ghost btn-xs mr-1 justify-self-end",
-					page >= players.length && '!btn-disabled'
+					page >= currentPlayers.length && '!btn-disabled'
 				)}
 				disabled={ page >= 5 }
 			>
@@ -140,7 +140,55 @@ export const Play: React.FC<PlayProps> = ({ players, addNewGameResult }) => {
 					nav('/');
 				}}
 			>
-				Game Over
+				Snape
+			</button>
+
+			<button className="btn btn-primary btn-outline"
+				onClick={() => {
+					addNewGameResult({
+						winner: 'Hermione',
+						players: [
+							'Hermione',
+							'Snape',
+							'Dumbledore',
+						],
+						chosenCats: [
+							{ player: 'Snape', cat: 'Chef' },
+							{ player: 'Dumbledore', cat: 'Explorer' },
+							{ player: 'Hermione', cat: 'Engineer' },
+						],
+						start: startTimestamp,
+						end: new Date().toISOString(),
+					});
+
+					nav('/');
+				}}
+			>
+				Hermione
+			</button>
+
+			<button className="btn btn-primary btn-outline"
+				onClick={() => {
+					addNewGameResult({
+						winner: 'Dumbledore',
+						players: [
+							'Hermione',
+							'Snape',
+							'Dumbledore',
+						],
+						chosenCats: [
+							{ player: 'Snape', cat: 'Chef' },
+							{ player: 'Dumbledore', cat: 'Explorer' },
+							{ player: 'Hermione', cat: 'Engineer' },
+						],
+						start: startTimestamp,
+						end: new Date().toISOString(),
+					});
+
+					nav('/');
+				}}
+			>
+				Dumbledore
 			</button>
 		</div>
 		</>
