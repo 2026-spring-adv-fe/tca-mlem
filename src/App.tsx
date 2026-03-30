@@ -139,7 +139,7 @@ const App = () => {
 					<Route path="/setup"
 						element={
 							<Setup
-								player={ player }
+								playerName={ player }
 								allPlayers={ getAllPlayers(gameResults) }
 								setCurrentPlayers={ setCurrentPlayers }
 							/>
