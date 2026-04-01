@@ -59,6 +59,8 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, setCurrent
 		setCurrentPlayers(players.map((p, i) =>
 			({
 				name: p,
+				cat: 'Chef',
+
 				page: i += 1,
 			})
 		));
