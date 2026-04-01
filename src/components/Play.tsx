@@ -11,6 +11,8 @@ import type { GameResult } from "../functions/GameResults";
 */
 export type Player = {
 	name: string,
+	cat: string;
+
 	page: number,
 }
 
@@ -119,77 +121,32 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 				</div>
 			</div>
 
-			<button className="btn btn-primary btn-outline"
-				onClick={() => {
-					addNewGameResult({
-						winner: 'Snape',
-						players: [
-							'Hermione',
-							'Snape',
-							'Dumbledore',
-						],
-						chosenCats: [
-							{ player: 'Snape', cat: 'Chef' },
-							{ player: 'Dumbledore', cat: 'Explorer' },
-							{ player: 'Hermione', cat: 'Engineer' },
-						],
-						start: startTimestamp,
-						end: new Date().toISOString(),
-					});
+			{
+				currentPlayers.map(p =>
+					<button className="btn btn-primary btn-outline"
+						onClick={() => {
+							addNewGameResult({
+								winner: p.name ,
+								players: currentPlayers.map(p => p.name),
+								chosenCats: currentPlayers.map(p =>
+									({
+										player: p.name, cat: 'Chef'
+									})
+								),
+								start: startTimestamp,
+								end: new Date().toISOString(),
 
-					nav('/');
-				}}
-			>
-				Snape
-			</button>
+								turnEndTimeStamps: ['hello'],
+							});
 
-			<button className="btn btn-primary btn-outline"
-				onClick={() => {
-					addNewGameResult({
-						winner: 'Hermione',
-						players: [
-							'Hermione',
-							'Snape',
-							'Dumbledore',
-						],
-						chosenCats: [
-							{ player: 'Snape', cat: 'Chef' },
-							{ player: 'Dumbledore', cat: 'Explorer' },
-							{ player: 'Hermione', cat: 'Engineer' },
-						],
-						start: startTimestamp,
-						end: new Date().toISOString(),
-					});
-
-					nav('/');
-				}}
-			>
-				Hermione
-			</button>
-
-			<button className="btn btn-primary btn-outline"
-				onClick={() => {
-					addNewGameResult({
-						winner: 'Dumbledore',
-						players: [
-							'Hermione',
-							'Snape',
-							'Dumbledore',
-						],
-						chosenCats: [
-							{ player: 'Snape', cat: 'Chef' },
-							{ player: 'Dumbledore', cat: 'Explorer' },
-							{ player: 'Hermione', cat: 'Engineer' },
-						],
-						start: startTimestamp,
-						end: new Date().toISOString(),
-					});
-
-					nav('/');
-				}}
-			>
-				Dumbledore
-			</button>
+							nav('/');
+						}}
+						key={ p.name }
+					>
+						{ p.name }
+					</button>
+				)
+			}
 		</div>
 		</>
 	);
