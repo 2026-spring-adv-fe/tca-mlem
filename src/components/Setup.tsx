@@ -1,6 +1,6 @@
 // React
 import { useNavigate } from "react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { getAllPlayers } from "../functions/GameResults";
 
@@ -46,9 +46,26 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, setCurrent
 		(a.checked ? -1 : 0) - (b.checked ? -1 : 0)
 	));
 
-	// Instead of [currentUser, setCurrentUser], you could do -
-	// const currentPlayersStateTuple = useState<string[]>([]);
+	// Set current players when available players is updated
+	useEffect(() => {
+		// Get the names of selected players
+		const players = availablePlayers.filter(p =>
+			p.checked
+		).map(p =>
+			p.name
+		);
 
+		// Set current players and the page they should appear on
+		setCurrentPlayers(players.map((p, i) =>
+			({
+				name: p,
+				page: i += 1,
+			})
+		));
+	}, [availablePlayers]);
+
+
+	// Updates available players when a new player is selected
 	const updateAvailablePlayers = (player: AvailablePlayer) => {
 		setAvailablePlayers(availablePlayers.map(p =>
 			({
