@@ -2,11 +2,6 @@
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 
-import { getAllPlayers } from "../functions/GameResults";
-
-// NPM
-import clsx from "clsx";
-
 // Types
 import type { Player } from "./Play";
 
@@ -28,6 +23,8 @@ type SetupProps = {
 
 /*
 	Setup Component
+
+	TODO: player limit 5
 */
 export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPlayers, setCurrentPlayers }) => {
 	const nav = useNavigate();
@@ -56,9 +53,8 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 		)
 	));
 
-	// Set current players when available players is updated
+	// Make sure current player is in available player array
 	useEffect(() => {
-		// Add current player if not in the database yet
 		if (!availablePlayers.find(p => p.name == playerName)) {
 			setAvailablePlayers(
 				sortAvailablePlayers([
@@ -79,7 +75,7 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 		setCurrentPlayers(players.map((p, i) =>
 			({
 				name: p,
-				cat: 'Chef',
+				cat: '',
 				page: i += 1,
 			})
 		));
@@ -89,13 +85,24 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 	/*
 		Updates available players when a new player is selected
 	*/
-	const updateAvailablePlayers = (player: AvailablePlayer) => {
+	const setPlayerChecked = (player: AvailablePlayer) => {
 		setAvailablePlayers(availablePlayers.map(p =>
 			({
 				name: p.name,
 				checked: p.name == player.name
 					? !p.checked
 					: p.checked
+			})
+		));
+	}
+
+	const setPlayerCat = (player: Player, cat: string) => {
+		// Set current players and the page they should appear on
+		setCurrentPlayers(currentPlayers.map(p =>
+			({
+				name: p.name,
+				cat: p.name == player.name ? cat : p.cat,
+				page: p.page
 			})
 		));
 	}
@@ -157,7 +164,7 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 						<label className="block mt-2" key={ p.name }>
 							<input type="checkbox"
 								className="checkbox mx-2"
-								onChange={ () => updateAvailablePlayers(p) }
+								onChange={ () => setPlayerChecked(p) }
 								checked={ p.checked }
 								disabled={ p.name == playerName }
 							/>
@@ -168,11 +175,32 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 			</>
 
 			: <>
-				{ currentPla}
+				<div className="w-96 mx-auto mt-5">
+					Choose player characters:
+
+					{ currentPlayers.map(p =>
+						<div className="card card-border mt-3 shadow-sm" key={ p.name }>
+							<div className="card-body">
+								{ p.name }
+								<select
+									className="select"
+									onChange={ (e) => setPlayerCat(p, e.target.value) }
+								>
+									<option value="">- - -</option>
+									<option value="Chef">Chef (white)</option>
+									<option value="Commander">Commander (blue)</option>
+									<option value="Doctor">Doctor (pink)</option>
+									<option value="Engineer">Engineer (orange)</option>
+									<option value="Scout">Scout (green)</option>
+								</select>
+							</div>
+						</div>
+					)}
+				</div>
 			</>
 		}
 		<div className="controls text-center">
-			{ setupComplete
+			{ setupPage == 2
 				? <button className="btn bg-purple-800" onClick={ () => nav('/play') }>Play Game</button>
 				: <button className="btn bg-purple-800 mx-auto my-5" onClick={ () => setSetupPage(setupPage + 1) }>Next</button>
 			}

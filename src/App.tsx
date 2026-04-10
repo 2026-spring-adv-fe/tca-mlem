@@ -141,6 +141,7 @@ const App = () => {
 							<Setup
 								playerName={ player }
 								allPlayers={ getAllPlayers(gameResults) }
+								currentPlayers={ currentPlayers }
 								setCurrentPlayers={ setCurrentPlayers }
 							/>
 						}
