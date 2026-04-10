@@ -35,7 +35,15 @@ export const Welcome: React.FC<WelcomeProps> = ({ setPlayer }) => {
 		<>
 			<dialog ref={dialogRef} className="modal">
 				<div className="modal-box">
-					<form onSubmit={ () => closeModal() }>
+					<form
+						onSubmit={ (e) => {
+							// Prevent page reload
+							e.preventDefault();
+
+							// Close the modal
+							closeModal();
+						}}
+					>
 						<h3 className="font-bold text-lg">Who is playing today?</h3>
 
 						<input type="text" className="input mt-3 mb-1.5" placeholder="Name"
@@ -47,9 +55,7 @@ export const Welcome: React.FC<WelcomeProps> = ({ setPlayer }) => {
 								: ''
 						}</p>
 
-						<button className="btn bg-purple-900 text-white mt-3"
-							onClick={ () => closeModal() }
-						>
+						<button type="submit" className="btn bg-purple-900 text-white mt-3">
 							Get Started
 						</button>
 					</form>
