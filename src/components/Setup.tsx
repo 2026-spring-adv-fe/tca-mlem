@@ -28,8 +28,6 @@ type SetupProps = {
 
 /*
 	Setup Component
-
-	TODO: Checklist of all previous players? (Get Players from gameResults.players)
 */
 export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPlayers, setCurrentPlayers }) => {
 	const nav = useNavigate();
@@ -113,6 +111,7 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 		if (!player) return;
 		if (availablePlayers.find(p => p.name.toLowerCase() == player.toLowerCase())) return;
 
+		// Add new player
 		setAvailablePlayers([
 			...availablePlayers,
 			{ name: player, checked: true }
