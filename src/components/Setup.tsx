@@ -100,12 +100,14 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 					: p.checked
 			})
 		));
-
-		// nav('/play');
 	}
 
+
+	/*
+		Adds a new player to the available players
+	*/
 	const addPlayer = () => {
-		const player = newPlayer.trim();
+		const player = newPlayer.trim().charAt(0).toUpperCase() + newPlayer.trim().slice(1);
 
 		// Return if input is empty or player already exists
 		if (!player) return;
