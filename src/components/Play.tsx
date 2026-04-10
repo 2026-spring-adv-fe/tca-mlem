@@ -130,13 +130,12 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 								players: currentPlayers.map(p => p.name),
 								chosenCats: currentPlayers.map(p =>
 									({
-										player: p.name, cat: 'Chef'
+										player: p.name,
+										cat: p.cat
 									})
 								),
 								start: startTimestamp,
 								end: new Date().toISOString(),
-
-								turnEndTimeStamps: ['hello'],
 							});
 
 							nav('/');
