@@ -172,7 +172,7 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 		<>
 		{ setupPage == 1
 			? <>
-				<form className="w-96 mt-5 mx-auto flex items-center"
+				<form className="w-full max-w-96 mt-5 mx-auto flex items-center p-3"
 					onSubmit={ (e) => {
 						// Prevent page reload
 						e.preventDefault();
@@ -183,7 +183,7 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 				>
 					<input
 						type="text"
-						className="input w-80 mr-2 mt-2"
+						className="input w-full mr-2 mt-2"
 						value={ newPlayer }
 						onChange={ (e) => setNewPlayer(e.target.value)}
 						placeholder="Add a new player"
@@ -197,7 +197,7 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 					</button>
 				</form>
 
-				<div className="w-96 mt-5 mx-auto">
+				<div className="w-full max-w-96 mt-5 mx-auto p-3">
 					Select Players:
 					{ availablePlayers.map(p =>
 						<label className="block mt-2" key={ p.name }>
@@ -214,7 +214,7 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 			</>
 
 			: <>
-				<div className="w-96 mx-auto mt-5">
+				<div className="w-full max-w-96 mx-auto mt-5 p-3">
 					Drag chosen character to the corresponding player:
 
 					<DragDropProvider

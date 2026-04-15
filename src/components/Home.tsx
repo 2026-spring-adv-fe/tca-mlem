@@ -32,13 +32,13 @@ export const Home: React.FC<HomeProps> = ({ generalFacts, leaderboard, playerNam
 
 	return (
 		<>
-			<div className="mx-auto w-96 mt-2">
+			<div className="mx-auto w-full max-w-96 mt-2">
 				<div className="p-4 pb-2 text-xs opacity-60 tracking-wide grid grid-flow-col">
 					Leaderboard Stats <span className="text-right">Current Rank: { leaderboardEntry.rank }</span>
 				</div>
 			</div>
 			<div className="statsContainer text-center">
-				<div className="stats shadow-md w-96 overflow-hidden" onClick={ () => nav('/leaderboard') }>
+				<div className="stats shadow-md w-full max-w-96 overflow-hidden" onClick={ () => nav('/leaderboard') }>
 
 					<div className="stat place-items-center">
 						<div className="stat-title">Wins</div>
@@ -62,10 +62,10 @@ export const Home: React.FC<HomeProps> = ({ generalFacts, leaderboard, playerNam
 				</div>
 			</div>
 
-			<div className="mx-auto w-96 mt-5">
+			<div className="mx-auto w-full max-w-96 mt-5">
 				<div className="p-4 pb-2 text-xs opacity-60 tracking-wide text-left">Game Stats</div>
 			</div>
-			<div className="card w-96 shadow-md mx-auto">
+			<div className="card w-full max-w-96 shadow-md mx-auto">
 				<ul className="list rounded-box shadow-md">
 					<li className="list-row text-lg">
 						Last Played: <span className="text-right">{ generalFacts.lastPlayed }</span>
@@ -99,7 +99,7 @@ export const Home: React.FC<HomeProps> = ({ generalFacts, leaderboard, playerNam
 
 			<div className="text-center mt-10">
 				<button
-					className="btn bg-purple-800 border-purple-800 text-white w-96"
+					className="btn bg-purple-800 border-purple-800 text-white w-full max-w-96"
 					onClick={ () => nav('/setup') }
 				>
 					Setup a game

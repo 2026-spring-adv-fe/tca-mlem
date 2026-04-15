@@ -72,7 +72,7 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 		</div>
 
 		<div className="text-center">
-			<div className="carousel w-96">
+			<div className="carousel w-full max-w-96">
 				<div
 					className={ clsx(
 						'carousel-item w-full',

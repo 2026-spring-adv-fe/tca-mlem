@@ -25,12 +25,12 @@ export const Leaderboard: React.FC<LeaderboardProps> = ({ leaderboard, playerNam
 
 	return (
 		<>
-		<div className="mx-auto w-96 mt-2">
+		<div className="mx-auto max-w-96 mt-2">
 			<div className="p-4 pb-2 text-xs opacity-60 tracking-wide grid grid-flow-col">
 				{ playerName } <span className="text-right">Current Rank: { leaderboardEntry.rank }</span>
 			</div>
 		</div>
-		<div className="overflow-x-auto rounded-box border border-base-content/5 w-96 mx-auto">
+		<div className="overflow-x-auto rounded-box border border-base-content/5 max-w-96 mx-auto">
 			<table className="table">
 				{/* head */}
 				<thead>
