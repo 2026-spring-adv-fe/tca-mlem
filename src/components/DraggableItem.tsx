@@ -30,13 +30,14 @@ export const DraggableItem: React.FC<DraggableCatProps> = ({ name }) => {
 		userSelect: 'none',
 		WebkitUserSelect: "none",
 		opacity: isDragging ? 0.75 : 1,
+		margin: 5
 	};
 
 
 	return (
 		<>
 		<div ref={ ref }
-			className="card-body card-border rounded-md shadow-md p-2 w-45 grid grid-flow-col inline-block items-center"
+			className="card-body card-border rounded-md shadow-md p-2 w-40 grid grid-flow-col inline-block items-center"
 			style={ draggableStyles }
 		>
 			<div className="avatar">

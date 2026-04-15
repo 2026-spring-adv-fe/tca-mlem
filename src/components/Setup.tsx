@@ -172,7 +172,7 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 		<>
 		{ setupPage == 1
 			? <>
-				<form className="w-full max-w-96 mt-5 mx-auto flex items-center p-3"
+				<form className="w-full max-w-96 mt-5 mx-auto p-2"
 					onSubmit={ (e) => {
 						// Prevent page reload
 						e.preventDefault();
@@ -197,7 +197,7 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 					</button>
 				</form>
 
-				<div className="w-full max-w-96 mt-5 mx-auto p-3">
+				<div className="w-full max-w-96 mt-5 mx-auto p-2">
 					Select Players:
 					{ availablePlayers.map(p =>
 						<label className="block mt-2" key={ p.name }>
@@ -214,8 +214,8 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 			</>
 
 			: <>
-				<div className="w-full max-w-96 mx-auto mt-5 p-3">
-					Drag chosen character to the corresponding player:
+				<div className="w-full max-w-96 mx-auto mt-5 p-2">
+					<span className="ml-2">Drag chosen character to player:</span>
 
 					<DragDropProvider
 						onDragEnd={(event) => {
@@ -233,11 +233,13 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 							}
 						}}
 					>
-						{ playableCats.map(
-							c => !chosenCats.includes(c.cat)
-								? <DraggableItem name={ c.cat } key={ c.cat } />
-								: null
-						)}
+						<div className="w-full max-w-96 my-3 grid grid-cols-2">
+							{ playableCats.map(
+								c => !chosenCats.includes(c.cat)
+									? <DraggableItem name={ c.cat } key={ c.cat } />
+									: null
+							)}
+						</div>
 
 						{ currentPlayers.map(p =>
 							<div className="card card-border mt-3 shadow-sm" key={ p.name }>
