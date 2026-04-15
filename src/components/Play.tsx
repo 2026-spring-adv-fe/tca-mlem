@@ -48,7 +48,7 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 			</button>
 
 			{/* Player Names */}
-			{ currentPlayers.map((player, i) =>
+			{ currentPlayers.map((player) =>
 				<h1
 					className={ clsx(
 						"text-lg",

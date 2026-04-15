@@ -57,7 +57,6 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 		Hooks
 	*/
 	const [setupPage, setSetupPage] = useState(1);
-	const [setupComplete, setSetupComplete] = useState(false);
 	const [newPlayer, setNewPlayer] = useState('');
 	const [availablePlayers, setAvailablePlayers] = useState(sortAvailablePlayers(
 		allPlayers.map(p =>
