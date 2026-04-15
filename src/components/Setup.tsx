@@ -1,5 +1,3 @@
-'use strict;'
-
 // React
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
