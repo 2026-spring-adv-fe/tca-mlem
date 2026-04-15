@@ -5,16 +5,16 @@ import type { LeaderboardEntry } from "../functions/GameResults";
 */
 type LeaderboardProps = {
 	leaderboard: LeaderboardEntry[]
-	player: string
+	playerName: string
 }
 
 /*
 	leaderboard Component
 */
-export const Leaderboard: React.FC<LeaderboardProps> = ({ leaderboard, player }) => {
-	const leaderboardEntry = leaderboard.find(p => p.name == player)
+export const Leaderboard: React.FC<LeaderboardProps> = ({ leaderboard, playerName }) => {
+	const leaderboardEntry = leaderboard.find(p => p.name == playerName)
 		|| {
-			name: player,
+			name: playerName,
 			wins: 0,
 			losses: 0,
 			ratio: 0,
@@ -27,7 +27,7 @@ export const Leaderboard: React.FC<LeaderboardProps> = ({ leaderboard, player })
 		<>
 		<div className="mx-auto w-96 mt-2">
 			<div className="p-4 pb-2 text-xs opacity-60 tracking-wide grid grid-flow-col">
-				{ player } <span className="text-right">Current Rank: { leaderboardEntry.rank }</span>
+				{ playerName } <span className="text-right">Current Rank: { leaderboardEntry.rank }</span>
 			</div>
 		</div>
 		<div className="overflow-x-auto rounded-box border border-base-content/5 w-96 mx-auto">
@@ -49,7 +49,7 @@ export const Leaderboard: React.FC<LeaderboardProps> = ({ leaderboard, player })
 								<td>{ i + 1 }</td>
 								<td className='flex items-center gap-5 w-25'>
 									{ p.name }
-									{ p.name == player
+									{ p.name == playerName
 										? <span className="material-symbols-outlined text-purple-900">person</span>
 										: null
 									}

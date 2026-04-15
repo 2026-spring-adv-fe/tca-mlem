@@ -4,7 +4,7 @@ import { durationFormatter } from 'human-readable';
 	Exported type definitions
 */
 export type ChosenCat = {
-	player: string;
+	playerName: string;
 	cat: string;
 }
 
@@ -74,7 +74,7 @@ export const getGeneralFacts = (games: GameResult[], player: string): GeneralFac
 
 	// Calculate players favorite cat
 	const playedCats = playerGames.flatMap(game =>
-		game.chosenCats.filter(c => c.player == player)
+		game.chosenCats.filter(c => c.playerName == player)
 	);
 
 	// Get count of each cat played

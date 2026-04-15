@@ -9,8 +9,8 @@ import { Drawer } from "./Drawer";
 	Navbar props
 */
 type NavbarProps = {
-	player: string,
-	setPlayer: (p: string) => void,
+	playerName: string,
+	setPlayerName: (p: string) => void,
 	theme: string,
 	setTheme: (t: string) => void,
 }
@@ -19,7 +19,7 @@ type NavbarProps = {
 /*
 	Navbar Component
 */
-export const Navbar: React.FC<NavbarProps> = ({ player, setPlayer, theme, setTheme }) => {
+export const Navbar: React.FC<NavbarProps> = ({ playerName, setPlayerName, theme, setTheme }) => {
 	const nav = useNavigate();
 	const location = useLocation();
 	const path = location.pathname;
@@ -44,8 +44,8 @@ export const Navbar: React.FC<NavbarProps> = ({ player, setPlayer, theme, setThe
 
 	return (
 		<>
-			{ !player && page !== 'Page Not Found'
-				? <Welcome setPlayer={ setPlayer } />
+			{ !playerName && page !== 'Page Not Found'
+				? <Welcome setPlayerName={ setPlayerName } />
 				: null
 			}
 
@@ -69,7 +69,7 @@ export const Navbar: React.FC<NavbarProps> = ({ player, setPlayer, theme, setThe
 							Abort Game
 						</button>
 						: <Drawer
-							player={ player }
+							playerName={ playerName }
 							path={ path }
 							theme={ theme }
 							setTheme={ setTheme }

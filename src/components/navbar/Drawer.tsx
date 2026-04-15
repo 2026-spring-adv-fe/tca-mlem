@@ -3,13 +3,13 @@ import { useRef } from "react";
 import localforage from "localforage";
 
 type DrawerProps = {
-	player: string,
+	playerName: string,
 	path: string,
 	theme: string,
 	setTheme: (t: string) => void,
 }
 
-export const Drawer: React.FC<DrawerProps> = ({ player, path, theme, setTheme }) => {
+export const Drawer: React.FC<DrawerProps> = ({ playerName, path, theme, setTheme }) => {
 	const nav = useNavigate();
 	const drawerRef = useRef<HTMLInputElement>(null);
 
@@ -61,7 +61,7 @@ export const Drawer: React.FC<DrawerProps> = ({ player, path, theme, setTheme })
 							{/* moon icon */}
 							<span className="material-symbols-outlined swap-off">bedtime</span>
 						</label>
-						<div className="">Hello, { player }!</div>
+						<div className="">Hello, { playerName }!</div>
 					</li>
 
 					<div className="divider my-1"></div>

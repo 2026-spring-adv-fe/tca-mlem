@@ -9,19 +9,19 @@ import { type GeneralFacts, type LeaderboardEntry } from "../functions/GameResul
 type HomeProps = {
 	generalFacts: GeneralFacts
 	leaderboard: LeaderboardEntry[],
-	player: string,
+	playerName: string,
 }
 
 
 /*
 	Home Component
 */
-export const Home: React.FC<HomeProps> = ({ generalFacts, leaderboard, player }) => {
+export const Home: React.FC<HomeProps> = ({ generalFacts, leaderboard, playerName }) => {
 	const nav = useNavigate();
 
-	const leaderboardEntry = leaderboard.find(p => p.name == player)
+	const leaderboardEntry = leaderboard.find(p => p.name == playerName)
 		|| {
-			name: player,
+			name: playerName,
 			wins: 0,
 			losses: 0,
 			ratio: 0,

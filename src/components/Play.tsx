@@ -132,7 +132,7 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 								players: currentPlayers.map(p => p.name),
 								chosenCats: currentPlayers.map(p =>
 									({
-										player: p.name,
+										playerName: p.name,
 										cat: p.cat
 									})
 								),

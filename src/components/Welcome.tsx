@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 
 type WelcomeProps = {
-	setPlayer: (p: string) => void
+	setPlayerName: (p: string) => void
 }
 
-export const Welcome: React.FC<WelcomeProps> = ({ setPlayer }) => {
+export const Welcome: React.FC<WelcomeProps> = ({ setPlayerName }) => {
 	const [player, updatePlayer] = useState('');
 	const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -16,7 +16,7 @@ export const Welcome: React.FC<WelcomeProps> = ({ setPlayer }) => {
 		if (player) {
 			// Ensure player name is capitalized
 			const playerName = player.charAt(0).toUpperCase() + player.slice(1);
-			setPlayer(playerName);
+			setPlayerName(playerName);
 
 			// Close the modal
 			dialogRef.current?.close();

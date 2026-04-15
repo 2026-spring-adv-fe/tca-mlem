@@ -33,9 +33,9 @@ const dummyGameResults: GameResult[] = [
 			"Ron",
 		],
 		chosenCats: [
-			{ player: 'Harry', cat: 'Chef' },
-			{ player: 'Hermione', cat: 'Engineer' },
-			{ player: 'Ron', cat: 'Explorer' }
+			{ playerName: 'Harry', cat: 'Chef' },
+			{ playerName: 'Hermione', cat: 'Engineer' },
+			{ playerName: 'Ron', cat: 'Explorer' }
 		],
 		start: "2026-02-01T18:53:59.078Z",
 		end: "2026-02-01T19:27:59.078Z",
@@ -48,9 +48,9 @@ const dummyGameResults: GameResult[] = [
 			"Ron",
 		],
 		chosenCats: [
-			{ player: 'Harry', cat: 'Chef' },
-			{ player: 'Hermione', cat: 'Captain' },
-			{ player: 'Ron', cat: 'Explorer' }
+			{ playerName: 'Harry', cat: 'Chef' },
+			{ playerName: 'Hermione', cat: 'Captain' },
+			{ playerName: 'Ron', cat: 'Explorer' }
 		],
 		start: "2026-01-15T22:07:59.078Z",
 		end: "2026-01-15T23:01:59.078Z",
@@ -63,9 +63,9 @@ const dummyGameResults: GameResult[] = [
 			"Ron",
 		],
 		chosenCats: [
-			{ player: 'Snape', cat: 'Chef' },
-			{ player: 'Hermione', cat: 'Captain' },
-			{ player: 'Ron', cat: 'Explorer' }
+			{ playerName: 'Snape', cat: 'Chef' },
+			{ playerName: 'Hermione', cat: 'Captain' },
+			{ playerName: 'Ron', cat: 'Explorer' }
 		],
 		start: "2026-02-12T22:07:59.078Z",
 		end: "2026-02-12T23:09:15.078Z",
@@ -78,7 +78,7 @@ const App = () => {
 		React Hooks
 	*/
 	const [gameResults, setGameResults] = useState(dummyGameResults);
-	const [player, setPlayer] = useState('');
+	const [playerName, setPlayerName] = useState('');
 	const [currentPlayers, setCurrentPlayers] = useState<Player[]>([]);
 	const [theme, setTheme] = useState('');
 
@@ -118,8 +118,8 @@ const App = () => {
 		<div className="min-h-screen" data-theme={ theme }>
 			<HashRouter>
 				<Navbar
-					player={ player }
-					setPlayer={ setPlayer }
+					playerName={ playerName }
+					setPlayerName={ setPlayerName }
 					theme={ theme }
 					setTheme={ setTheme }
 				/>
@@ -129,9 +129,9 @@ const App = () => {
 					<Route path="/"
 						element={
 							<Home
-								generalFacts={ getGeneralFacts(gameResults, player) }
+								generalFacts={ getGeneralFacts(gameResults, playerName) }
 								leaderboard={ getLeaderboard(gameResults) }
-								player={ player }
+								playerName={ playerName }
 							/>
 						}
 					/>
@@ -140,7 +140,7 @@ const App = () => {
 					<Route path="/setup"
 						element={
 							<Setup
-								playerName={ player }
+								playerName={ playerName }
 								allPlayers={ getAllPlayers(gameResults) }
 								currentPlayers={ currentPlayers }
 								setCurrentPlayers={ setCurrentPlayers }
@@ -163,7 +163,7 @@ const App = () => {
 						element={
 							<Leaderboard
 								leaderboard={ getLeaderboard(gameResults) }
-								player={ player }
+								playerName={ playerName }
 							/>
 						}
 					/>
