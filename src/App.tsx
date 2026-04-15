@@ -82,6 +82,7 @@ const App = () => {
 	const [currentPlayers, setCurrentPlayers] = useState<Player[]>([]);
 	const [theme, setTheme] = useState('');
 
+
 	useEffect(() => {
 		const loadTheme = async () => {
 			const result = await localforage.getItem<string>('theme') ?? 'lofi';

@@ -32,6 +32,8 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 	const [startTimestamp] = useState(new Date().toISOString());
 	const [page, setPage] = useState(1);
 
+	console.log(currentPlayers);
+
 	return (
 		<>
 		<div className="grid grid-flow-col w-full gap-2 py-2 text-center">

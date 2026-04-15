@@ -1,9 +1,16 @@
+'use strict;'
+
 // React
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 
 // Types
 import type { Player } from "./Play";
+
+// Drag n Drop
+import { DragDropProvider } from '@dnd-kit/react';
+import { DraggableItem } from "./DraggableItem";
+import { Dropzone } from "./Dropzone";
 
 
 type AvailablePlayer = {
@@ -29,6 +36,29 @@ type SetupProps = {
 export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPlayers, setCurrentPlayers }) => {
 	const nav = useNavigate();
 
+	const playableCats = [
+		{
+			cat: 'Chef',
+			color: 'White'
+		},
+		{
+			cat: 'Captain',
+			color: 'Blue'
+		},
+		{
+			cat: 'Doctor',
+			color: 'Pink'
+		},
+		{
+			cat: 'Engineer',
+			color: 'Orange'
+		},
+		{
+			cat: 'Scout',
+			color: 'Green'
+		},
+	]
+
 	/*
 		For sorting availablePlayers in a way that the current player is first
 
@@ -52,6 +82,9 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 			})
 		)
 	));
+
+	// Drag n Drop
+	const [chosenCats, setChosenCats] = useState<string[]>([]);
 
 	// Make sure current player is in available player array
 	useEffect(() => {
@@ -96,15 +129,21 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 		));
 	}
 
-	const setPlayerCat = (player: Player, cat: string) => {
+	const setPlayerCat = (playerName: string, cat: string) => {
 		// Set current players and the page they should appear on
 		setCurrentPlayers(currentPlayers.map(p =>
 			({
 				name: p.name,
-				cat: p.name == player.name ? cat : p.cat,
+				cat: p.name == playerName ? cat : p.cat,
 				page: p.page
 			})
 		));
+
+		// Update chosen cats
+		setChosenCats([
+			...chosenCats,
+			cat
+		]);
 	}
 
 
@@ -176,33 +215,46 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 
 			: <>
 				<div className="w-96 mx-auto mt-5">
-					Choose player characters:
+					Drag chosen character to the corresponding player:
 
-					{ currentPlayers.map(p =>
-						<div className="card card-border mt-3 shadow-sm" key={ p.name }>
-							<div className="card-body">
-								{ p.name }
-								<select
-									className="select"
-									onChange={ (e) => setPlayerCat(p, e.target.value) }
-								>
-									<option value="">- - -</option>
-									<option value="Chef">Chef (white)</option>
-									<option value="Commander">Commander (blue)</option>
-									<option value="Doctor">Doctor (pink)</option>
-									<option value="Engineer">Engineer (orange)</option>
-									<option value="Scout">Scout (green)</option>
-								</select>
-							</div>
+					<DragDropProvider
+						onDragEnd={(event) => {
+							if (event.canceled) return;
+
+							const playerName = event.operation.target?.id ?? '';
+							const cat = event.operation.source?.id ?? '';
+
+							if (playerName) {
+								setPlayerCat(playerName.toString(), cat.toString());
+							}
+						}}
+					>
+						<div>
+							{ playableCats.map(
+								c => !chosenCats.includes(c.cat)
+									? <DraggableItem name={ c.cat } key={ c.cat } />
+									: null
+							) }
 						</div>
-					)}
+
+						{ currentPlayers.map(p =>
+							<div className="card card-border mt-3 shadow-sm" key={ p.name }>
+								<div className="card-body">
+									{ p.name }
+									<Dropzone id={p.name}>
+										{ p.cat ? <DraggableItem name={ p.cat } /> : null }
+									</Dropzone>
+								</div>
+							</div>
+						)}
+					</DragDropProvider>
 				</div>
 			</>
 		}
 		<div className="controls text-center">
 			{ setupPage == 2
-				? <button className="btn bg-purple-800" onClick={ () => nav('/play') }>Play Game</button>
-				: <button className="btn bg-purple-800 mx-auto my-5" onClick={ () => setSetupPage(setupPage + 1) }>Next</button>
+				? <button className="btn bg-purple-800 text-white" onClick={ () => nav('/play') }>Play Game</button>
+				: <button className="btn bg-purple-800 mx-auto my-5 text-white" onClick={ () => setSetupPage(setupPage + 1) }>Next</button>
 			}
 		</div>
 
