@@ -34,29 +34,16 @@ type SetupProps = {
 	TODO: player limit 5
 */
 export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPlayers, setCurrentPlayers }) => {
+	// Navigate
 	const nav = useNavigate();
 
+	// Playable cats
 	const playableCats = [
-		{
-			cat: 'Chef',
-			color: 'White'
-		},
-		{
-			cat: 'Captain',
-			color: 'Blue'
-		},
-		{
-			cat: 'Doctor',
-			color: 'Pink'
-		},
-		{
-			cat: 'Engineer',
-			color: 'Orange'
-		},
-		{
-			cat: 'Scout',
-			color: 'Green'
-		},
+		{ cat: 'Chef' },
+		{ cat: 'Captain' },
+		{ cat: 'Doctor' },
+		{ cat: 'Engineer' },
+		{ cat: 'Scout' },
 	]
 
 	/*
@@ -86,8 +73,9 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 	// Drag n Drop
 	const [chosenCats, setChosenCats] = useState<string[]>([]);
 
-	// Make sure current player is in available player array
+	// Available players watcher
 	useEffect(() => {
+		// Make sure current player is in available player array
 		if (!availablePlayers.find(p => p.name == playerName)) {
 			setAvailablePlayers(
 				sortAvailablePlayers([
@@ -129,15 +117,30 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 		));
 	}
 
+
+	/*
+		Updates player's chosen cats on drag n drop setup screen
+	*/
 	const setPlayerCat = (playerName: string, cat: string) => {
-		// Set current players and the page they should appear on
-		setCurrentPlayers(currentPlayers.map(p =>
-			({
-				name: p.name,
-				cat: p.name == playerName ? cat : p.cat,
-				page: p.page
-			})
-		));
+		if (playerName) {
+			// Set current players and the page they should appear on
+			setCurrentPlayers(currentPlayers.map(p =>
+				({
+					name: p.name,
+					cat: p.name == playerName ? cat : p.cat,
+					page: p.page
+				})
+			));
+		} else {
+			// Unset cat from player
+			setCurrentPlayers(currentPlayers.map(p =>
+				({
+					name: p.name,
+					cat: p.cat == cat ? '' : p.cat,
+					page: p.page
+				})
+			));
+		}
 
 		// Update chosen cats
 		setChosenCats([
@@ -221,21 +224,23 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 						onDragEnd={(event) => {
 							if (event.canceled) return;
 
-							const playerName = event.operation.target?.id ?? '';
-							const cat = event.operation.source?.id ?? '';
+							const playerName = (event.operation.target?.id)?.toString() ?? '';
+							const cat = (event.operation.source?.id)?.toString() ?? '';
 
-							if (playerName) {
-								setPlayerCat(playerName.toString(), cat.toString());
+							// Set player cat
+							setPlayerCat(playerName, cat);
+
+							// Add cat back to drag and drop zone
+							if (!playerName) {
+								setChosenCats(chosenCats.map(c => c == cat ? '' : c));
 							}
 						}}
 					>
-						<div>
-							{ playableCats.map(
-								c => !chosenCats.includes(c.cat)
-									? <DraggableItem name={ c.cat } key={ c.cat } />
-									: null
-							) }
-						</div>
+						{ playableCats.map(
+							c => !chosenCats.includes(c.cat)
+								? <DraggableItem name={ c.cat } key={ c.cat } />
+								: null
+						)}
 
 						{ currentPlayers.map(p =>
 							<div className="card card-border mt-3 shadow-sm" key={ p.name }>
@@ -253,7 +258,7 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 		}
 		<div className="controls text-center">
 			{ setupPage == 2
-				? <button className="btn bg-purple-800 text-white" onClick={ () => nav('/play') }>Play Game</button>
+				? <button className="btn bg-purple-800 mx-auto my-5 text-white" onClick={ () => nav('/play') }>Play Game</button>
 				: <button className="btn bg-purple-800 mx-auto my-5 text-white" onClick={ () => setSetupPage(setupPage + 1) }>Next</button>
 			}
 		</div>
