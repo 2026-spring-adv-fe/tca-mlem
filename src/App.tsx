@@ -79,10 +79,12 @@ const App = () => {
 	*/
 	const [gameResults, setGameResults] = useState(dummyGameResults);
 	const [playerName, setPlayerName] = useState('');
+	const [playerEmail, setPlayerEmail] = useState('');
 	const [currentPlayers, setCurrentPlayers] = useState<Player[]>([]);
 	const [theme, setTheme] = useState('');
 
 
+	// Save theme locally
 	useEffect(() => {
 		const loadTheme = async () => {
 			const result = await localforage.getItem<string>('theme') ?? 'lofi';
@@ -93,7 +95,27 @@ const App = () => {
 		}
 
 		let ignore = false;
-		loadTheme()
+		loadTheme();
+
+		return () => {
+			ignore = true;
+		}
+	}, []);
+
+	// Save email locally
+	useEffect(() => {
+		console.log(playerEmail);
+
+		const loadEmail = async () => {
+			const result = await localforage.getItem<string>('email') ?? '';
+
+			if (!ignore) {
+				setPlayerEmail(result);
+			}
+		}
+
+		let ignore = false;
+		loadEmail();
 
 		return () => {
 			ignore = true;
@@ -120,6 +142,8 @@ const App = () => {
 				<Navbar
 					playerName={ playerName }
 					setPlayerName={ setPlayerName }
+					playerEmail={ playerEmail }
+					setPlayerEmail={ setPlayerEmail }
 					theme={ theme }
 					setTheme={ setTheme }
 				/>

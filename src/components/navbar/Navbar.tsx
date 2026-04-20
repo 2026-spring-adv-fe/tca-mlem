@@ -11,6 +11,10 @@ import { Drawer } from "./Drawer";
 type NavbarProps = {
 	playerName: string,
 	setPlayerName: (p: string) => void,
+
+	playerEmail: string,
+	setPlayerEmail: (e: string) => void,
+
 	theme: string,
 	setTheme: (t: string) => void,
 }
@@ -19,7 +23,7 @@ type NavbarProps = {
 /*
 	Navbar Component
 */
-export const Navbar: React.FC<NavbarProps> = ({ playerName, setPlayerName, theme, setTheme }) => {
+export const Navbar: React.FC<NavbarProps> = ({ playerName, setPlayerName, playerEmail, setPlayerEmail, theme, setTheme }) => {
 	const nav = useNavigate();
 	const location = useLocation();
 	const path = location.pathname;
@@ -61,6 +65,7 @@ export const Navbar: React.FC<NavbarProps> = ({ playerName, setPlayerName, theme
 						MLEM
 					</button>
 				</div>
+
 				<h1 className="text-2xl font-bold navbar-center text-white">{ page }</h1>
 
 				<div className="text-sm pr-2 navbar-end">
@@ -71,6 +76,8 @@ export const Navbar: React.FC<NavbarProps> = ({ playerName, setPlayerName, theme
 						: <Drawer
 							playerName={ playerName }
 							path={ path }
+							playerEmail={ playerEmail }
+							setPlayerEmail={ setPlayerEmail }
 							theme={ theme }
 							setTheme={ setTheme }
 						/>

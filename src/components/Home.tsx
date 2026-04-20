@@ -32,79 +32,83 @@ export const Home: React.FC<HomeProps> = ({ generalFacts, leaderboard, playerNam
 
 	return (
 		<>
-			<div className="mx-auto w-full max-w-96 mt-2">
-				<div className="p-4 pb-2 text-xs opacity-60 tracking-wide grid grid-flow-col">
-					Leaderboard Stats <span className="text-right">Current Rank: { leaderboardEntry.rank }</span>
+		<div className="mx-auto w-full max-w-96 mt-2">
+			<div className="p-4 pb-2 text-xs opacity-60 tracking-wide grid grid-cols-3">
+				<div>Leaderboard Stats</div>
+				<div className="text-center">{ playerName }</div>
+				<div className="text-end">Current Rank: { leaderboardEntry.rank }</div>
+			</div>
+		</div>
+		<div className="statsContainer text-center">
+			<div
+				className="stats shadow-md w-full max-w-96 overflow-hidden"
+				onClick={ () => nav('/leaderboard') }
+			>
+				<div className="stat place-items-center">
+					<div className="stat-title">Wins</div>
+					<div className="stat-value">{ leaderboardEntry.wins }</div>
+				</div>
+
+				<div className="stat place-items-center">
+					<div className="stat-title">Losses</div>
+					<div className="stat-value">{ leaderboardEntry.losses }</div>
+				</div>
+
+				<div className="stat place-items-center">
+					<div className="stat-title">W/L Ratio</div>
+					<div className="stat-value">{ leaderboardEntry.ratio }</div>
+				</div>
+
+				<div className="stat place-items-center">
+					<div className="stat-title">Total Games</div>
+					<div className="stat-value">{ leaderboardEntry.totalGames }</div>
 				</div>
 			</div>
-			<div className="statsContainer text-center">
-				<div className="stats shadow-md w-full max-w-96 overflow-hidden" onClick={ () => nav('/leaderboard') }>
+		</div>
 
-					<div className="stat place-items-center">
-						<div className="stat-title">Wins</div>
-						<div className="stat-value">{ leaderboardEntry.wins }</div>
-					</div>
+		<div className="mx-auto w-full max-w-96 mt-5">
+			<div className="p-4 pb-2 text-xs opacity-60 tracking-wide text-left">Game Stats</div>
+		</div>
+		<div className="card w-full max-w-96 shadow-md mx-auto">
+			<ul className="list rounded-box shadow-md">
+				<li className="list-row text-lg">
+					Last Played: <span className="text-right">{ generalFacts.lastPlayed }</span>
+				</li>
 
-					<div className="stat place-items-center">
-						<div className="stat-title">Losses</div>
-						<div className="stat-value">{ leaderboardEntry.losses }</div>
-					</div>
+				<li className="list-row text-lg">
+					Shortest Game: <span className="text-right">{ generalFacts.shortestGame }</span>
+				</li>
 
-					<div className="stat place-items-center">
-						<div className="stat-title">W/L Ratio</div>
-						<div className="stat-value">{ leaderboardEntry.ratio }</div>
-					</div>
+				<li className="list-row text-lg">
+					Longest Game: <span className="text-right">{ generalFacts.longestGame }</span>
+				</li>
 
-					<div className="stat place-items-center">
-						<div className="stat-title">Total Games</div>
-						<div className="stat-value">{ leaderboardEntry.totalGames }</div>
-					</div>
-				</div>
-			</div>
+				<li className="list-row text-lg">
+					Favorite Cat: <span className="text-right">{ generalFacts.favoriteCat }</span>
+				</li>
 
-			<div className="mx-auto w-full max-w-96 mt-5">
-				<div className="p-4 pb-2 text-xs opacity-60 tracking-wide text-left">Game Stats</div>
-			</div>
-			<div className="card w-full max-w-96 shadow-md mx-auto">
-				<ul className="list rounded-box shadow-md">
-					<li className="list-row text-lg">
-						Last Played: <span className="text-right">{ generalFacts.lastPlayed }</span>
-					</li>
+				<li className="list-row text-lg">
+					Most Points: <span className="text-right">{ generalFacts.favoriteCat }</span>
+				</li>
 
-					<li className="list-row text-lg">
-						Shortest Game: <span className="text-right">{ generalFacts.shortestGame }</span>
-					</li>
+				<li className="list-row text-lg">
+					Least Points: <span className="text-right">{ generalFacts.favoriteCat }</span>
+				</li>
 
-					<li className="list-row text-lg">
-						Longest Game: <span className="text-right">{ generalFacts.longestGame }</span>
-					</li>
+				<li className="list-row text-lg">
+					Reached the cosmos: <span className="text-right">{ generalFacts.favoriteCat } times</span>
+				</li>
+			</ul>
+		</div>
 
-					<li className="list-row text-lg">
-						Favorite Cat: <span className="text-right">{ generalFacts.favoriteCat }</span>
-					</li>
-
-					<li className="list-row text-lg">
-						Most Points: <span className="text-right">{ generalFacts.favoriteCat }</span>
-					</li>
-
-					<li className="list-row text-lg">
-						Least Points: <span className="text-right">{ generalFacts.favoriteCat }</span>
-					</li>
-
-					<li className="list-row text-lg">
-						Reached the cosmos: <span className="text-right">{ generalFacts.favoriteCat } times</span>
-					</li>
-				</ul>
-			</div>
-
-			<div className="text-center mt-10">
-				<button
-					className="btn bg-purple-800 border-purple-800 text-white w-full max-w-96"
-					onClick={ () => nav('/setup') }
-				>
-					Setup a game
-				</button>
-			</div>
+		<div className="text-center mt-10">
+			<button
+				className="btn bg-purple-800 border-purple-800 text-white w-full max-w-96"
+				onClick={ () => nav('/setup') }
+			>
+				Setup a game
+			</button>
+		</div>
 		</>
 	);
 }
