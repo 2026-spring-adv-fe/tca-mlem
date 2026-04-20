@@ -80,19 +80,19 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 
 
 		<div className="text-center">
-			{currentPlayers.map((player, i) =>
+			{currentPlayers.map(player =>
 				(page == player.page)
-				? <div className="carousel w-full max-w-96">
-					<div
-						className={ clsx(
-							'carousel-item w-full',
-							page != player.page && 'hidden'
-						)}
-					>
-						{ player.page }
+					? <div className="carousel w-full max-w-96">
+						<div
+							className={ clsx(
+								'carousel-item w-full',
+								page != player.page && 'hidden'
+							)}
+						>
+							{ player.name }
+						</div>
 					</div>
-				</div>
-				: null
+					: null
 			)}
 		</div>
 
