@@ -33,7 +33,7 @@ export const Welcome: React.FC<WelcomeProps> = ({ setPlayerName }) => {
 
 	return (
 		<>
-			<dialog ref={dialogRef} className="modal">
+			<dialog ref={dialogRef} className="modal modal-bottom sm:modal-middle text-center">
 				<div className="modal-box">
 					<form
 						onSubmit={ (e) => {
