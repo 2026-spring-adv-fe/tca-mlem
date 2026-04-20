@@ -5,7 +5,7 @@ type WelcomeProps = {
 }
 
 export const Welcome: React.FC<WelcomeProps> = ({ setPlayerName }) => {
-	const [player, updatePlayer] = useState('');
+	const [playerName, updatePlayerName] = useState('');
 	const dialogRef = useRef<HTMLDialogElement>(null);
 
 
@@ -13,10 +13,12 @@ export const Welcome: React.FC<WelcomeProps> = ({ setPlayerName }) => {
 		Closes the modal after providing a name
 	*/
 	const closeModal = () => {
-		if (player) {
-			// Ensure player name is capitalized
-			const playerName = player.charAt(0).toUpperCase() + player.slice(1);
-			setPlayerName(playerName);
+		if (playerName) {
+			// Ensure playerName name is capitalized
+			const name = playerName.charAt(0).toUpperCase() + playerName.slice(1);
+
+			// Set the playerName
+			setPlayerName(name);
 
 			// Close the modal
 			dialogRef.current?.close();
@@ -47,10 +49,10 @@ export const Welcome: React.FC<WelcomeProps> = ({ setPlayerName }) => {
 						<h3 className="font-bold text-lg">Who is playing today?</h3>
 
 						<input type="text" className="input mt-3 mb-1.5" placeholder="Name"
-							onChange={ (e) => updatePlayer(e.target.value) }
+							onChange={ (e) => updatePlayerName(e.target.value) }
 						/>
 						<p className="text-xs text-grey">{
-							!player
+							!playerName
 								? 'A name is required to use the companion'
 								: ''
 						}</p>
