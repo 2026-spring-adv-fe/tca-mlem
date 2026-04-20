@@ -26,17 +26,18 @@ type PlayProps = {
 
 /*
 	Play Component
+
+	TODO: add 'Events' that allows a player to input what happened on their turn -> i.e. 'Landed on planet', 'Landed on moon', 'Crashed', 'Made it to cosmos'
+	TODO: add multipliers that target a specific event for end game calculations -> i.e. 'Landed on planet' x2, 'Landed on moon' x2'
 */
 export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) => {
 	const nav = useNavigate();
 	const [startTimestamp] = useState(new Date().toISOString());
 	const [page, setPage] = useState(1);
 
-	console.log(currentPlayers);
-
 	return (
 		<>
-		<div className="grid grid-flow-col w-full gap-2 py-2 text-center">
+		<div className="grid grid-flow-col w-full gap-2 py-2 text-center mt-2">
 			<button onClick={ () => setPage(page - 1) }
 				className={ clsx(
 					"material-symbols-outlined btn btn-ghost btn-xs ml-1 justify-self-start",
@@ -56,7 +57,13 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 					)}
 					key={player.name}
 				>
-					{ player.name }
+					<div className="avatar flex justify-center items-center">
+						<div className="w-12 rounded-full mr-3">
+							<img src={ `cats/${player.cat}.png` } />
+						</div>
+
+						{ player.name }
+					</div>
 				</h1>
 			)}
 
@@ -71,58 +78,25 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 			</button>
 		</div>
 
-		<div className="text-center">
-			<div className="carousel w-full max-w-96">
-				<div
-					className={ clsx(
-						'carousel-item w-full',
-						page != 1 && 'hidden'
-					)}
-				>
-					<img
-						src="https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp"
-						className="w-full" />
-				</div>
-				<div
-					className={ clsx(
-						'carousel-item w-full',
-						page != 2 && 'hidden'
-					)}
-				>
-					<img
-						src="https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp"
-						className="w-full" />
-				</div>
-				<div
-					className={ clsx(
-						'carousel-item w-full',
-						page != 3 && 'hidden'
-					)}
-				>
-					<img
-						src="https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp"
-						className="w-full" />
-				</div>
-				<div
-					className={ clsx(
-						'carousel-item w-full',
-						page != 4 && 'hidden'
-					)}
-				>
-					<img
-						src="https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp"
-						className="w-full" />
-				</div>
-				<div
-					className={ clsx(
-						'carousel-item w-full',
-						page != 5 && 'hidden'
-					)}
-				>
-					page 5
-				</div>
-			</div>
 
+		<div className="text-center">
+			{currentPlayers.map((player, i) =>
+				(page == player.page)
+				? <div className="carousel w-full max-w-96">
+					<div
+						className={ clsx(
+							'carousel-item w-full',
+							page != player.page && 'hidden'
+						)}
+					>
+						{ player.page }
+					</div>
+				</div>
+				: null
+			)}
+		</div>
+
+		<div className="mx-auto w-full max-w-96">
 			{
 				currentPlayers.map(p =>
 					<button className="btn btn-primary btn-outline"
