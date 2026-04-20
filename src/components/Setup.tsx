@@ -9,6 +9,7 @@ import type { Player } from "./Play";
 import { DragDropProvider } from '@dnd-kit/react';
 import { DraggableItem } from "./DraggableItem";
 import { Dropzone } from "./Dropzone";
+import clsx from "clsx";
 
 
 type AvailablePlayer = {
@@ -168,11 +169,19 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 	}
 
 
+	/*
+		Returns true/falsey for wether the setup is complete
+	*/
+	const validateSetup = () => {
+		return currentPlayers.filter(p => p.cat == '') .length == 0;
+	}
+
+
 	return (
 		<>
 		{ setupPage == 1
 			? <>
-				<form className="w-full max-w-96 mt-5 mx-auto p-2"
+				<form className="w-full max-w-96 mt-5 mx-auto grid grid-flow-col grid-col-5 gap-2 p-2"
 					onSubmit={ (e) => {
 						// Prevent page reload
 						e.preventDefault();
@@ -183,7 +192,7 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 				>
 					<input
 						type="text"
-						className="input w-full mr-2 mt-2"
+						className="input w-full mr-2 col-span-4"
 						value={ newPlayer }
 						onChange={ (e) => setNewPlayer(e.target.value)}
 						placeholder="Add a new player"
@@ -191,7 +200,7 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 
 					<button
 						type="submit"
-						className="material-symbols-outlined btn bg-purple-800 text-white mt-2"
+						className="material-symbols-outlined btn bg-purple-800 w-15 text-white justify-self-end"
 					>
 						add
 					</button>
@@ -215,8 +224,6 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 
 			: <>
 				<div className="w-full max-w-96 mx-auto mt-5 p-2">
-					<span className="ml-2">Drag chosen character to player:</span>
-
 					<DragDropProvider
 						onDragEnd={(event) => {
 							if (event.canceled) return;
@@ -233,13 +240,15 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 							}
 						}}
 					>
-						<div className="w-full max-w-96 my-3 grid grid-cols-2">
+						<div className="w-full max-w-96 mb-3 grid grid-cols-2">
 							{ playableCats.map(
 								c => !chosenCats.includes(c.cat)
 									? <DraggableItem name={ c.cat } key={ c.cat } />
 									: null
 							)}
 						</div>
+
+						<div className="divider">Drag character to player</div>
 
 						{ currentPlayers.map(p =>
 							<div className="card card-border mt-3 shadow-sm" key={ p.name }>
@@ -257,8 +266,43 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 		}
 		<div className="controls text-center">
 			{ setupPage == 2
-				? <button className="btn bg-purple-800 mx-auto my-5 text-white" onClick={ () => nav('/play') }>Play Game</button>
-				: <button className="btn bg-purple-800 mx-auto my-5 text-white" onClick={ () => setSetupPage(setupPage + 1) }>Next</button>
+				? <>
+					<button
+						className={clsx(
+							"btn bg-purple-800 mx-auto my-5 text-white",
+							!validateSetup() ? 'opacity-60' : null,
+						)}
+						disabled={ !validateSetup() }
+						onClick={ () => nav('/play') }
+					>
+						Play Game
+					</button>
+				</>
+
+				: <>
+					<button
+						className={clsx(
+							"btn bg-purple-800 mx-auto my-5 text-white",
+							currentPlayers.length > 5 || currentPlayers.length < 2 ? 'opacity-60' : null,
+						)}
+						disabled={ currentPlayers.length > 5 || currentPlayers.length < 2 }
+						onClick={ () => setSetupPage(setupPage + 1) }
+					>
+						Next
+					</button>
+
+					{currentPlayers.length > 5
+						? <>
+							<div className="relative toast toast-center mt-5">
+								<div className="alert alert-error mx-auto w-full max-w-75 justify-center items-center">
+									<span className="material-symbols-outlined">error</span>
+									<span>Please select between 2-5 players</span>
+								</div>
+							</div>
+						</>
+						: null
+					}
+				</>
 			}
 		</div>
 
