@@ -9,7 +9,7 @@ export const PageNotFound = () => {
 	return (
 		<>
 			<div className="text-center">
-				<img className="inline-block mx-auto" src="src/assets/pageNotFound.png" alt="" />
+				<img className="inline-block mx-auto" src="pageNotFound.png" alt="" />
 
 				<h1 className="text-lg">The page you are looking for could not be found</h1>
 
