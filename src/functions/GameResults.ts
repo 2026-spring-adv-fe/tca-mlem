@@ -8,11 +8,19 @@ export type ChosenCat = {
 	cat: string;
 }
 
+export type GameEvent = {
+	playerName: string;
+	event: string;
+	points: string;
+}
+
 export type GameResult = {
     winner: string;
 
     players: string[];
 	chosenCats: ChosenCat[];
+
+	events: GameEvent[];
 
     start: string;
     end: string;
@@ -23,6 +31,9 @@ export type GeneralFacts = {
     shortestGame: string;
     longestGame: string;
 	favoriteCat: string;
+	mostPoints: string;
+	leastPoints: string;
+	cosmosCount: string;
 };
 
 export type LeaderboardEntry = {
@@ -58,6 +69,9 @@ export const getGeneralFacts = (games: GameResult[], player: string): GeneralFac
             shortestGame: 'N/A',
             longestGame: 'N/A',
 			favoriteCat: 'N/A',
+			mostPoints: 'N/A',
+			leastPoints: 'N/A',
+			cosmosCount: 'N/A',
         }
     }
 
@@ -86,11 +100,32 @@ export const getGeneralFacts = (games: GameResult[], player: string): GeneralFac
 
 	const favoriteCats = Object.keys(catCount).filter(k => catCount[k] == maxCount);
 
+	// Calculate user's highest point game
+	const playerPoints = playerGames.map(game =>
+		game.events.filter(e =>
+			e.playerName == player
+		).reduce((total, event) =>
+			total + Number(event.points)
+		, 0)
+	);
+
+	const cosmosCount = playerGames.map(game =>
+		game.events.filter(e =>
+			e.playerName == player && e.event == 'Reached the cosmos'
+		).length
+	).reduce((total, count) =>
+		total + count
+	, 0);
+
+
     return {
         lastPlayed: formatLastPlayed(mostRecentGame),
 		shortestGame:formatGameDuration(Math.min(...gameDurations)),
         longestGame: formatGameDuration(Math.max(...gameDurations)),
 		favoriteCat: `${favoriteCats.join(', ')}`,
+		mostPoints:  String(Math.max(...playerPoints)),
+		leastPoints:  String(Math.min(...playerPoints)),
+		cosmosCount: cosmosCount.toString(),
     };
 };
 

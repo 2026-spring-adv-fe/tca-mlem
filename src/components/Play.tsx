@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 import clsx from "clsx";
 
 import type { GameResult } from "../functions/GameResults";
+import type { GameEvent } from "../functions/GameResults";
 
 
 /*
@@ -34,6 +35,34 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 	const nav = useNavigate();
 	const [startTimestamp] = useState(new Date().toISOString());
 	const [page, setPage] = useState(1);
+	const [events, setEvents] = useState<GameEvent[]>([]);
+	const [cosmosCounter, setCosmosCounter] = useState(0);
+
+	useEffect(() => {
+		setEvents([
+			{
+				playerName: 'Harry',
+				event:'Landed on planet',
+				points: '100'
+			},
+			{
+				playerName: 'Harry',
+				event:'Landed on Moon',
+				points: '80'
+			},
+			{
+				playerName: 'Harry',
+				event:'Landed on planet',
+				points: '300'
+			},
+			{
+				playerName: 'Harry',
+				event:'Reached the cosmos',
+				points: '500'
+			},
+		]);
+
+	}, []);
 
 	return (
 		<>
@@ -88,6 +117,7 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 								'carousel-item w-full',
 								page != player.page && 'hidden'
 							)}
+							key={player.page}
 						>
 							{ player.name }
 						</div>
@@ -110,6 +140,7 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 										cat: p.cat
 									})
 								),
+								events: events,
 								start: startTimestamp,
 								end: new Date().toISOString(),
 							});
