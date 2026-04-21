@@ -36,7 +36,6 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 	const [startTimestamp] = useState(new Date().toISOString());
 	const [page, setPage] = useState(1);
 	const [events, setEvents] = useState<GameEvent[]>([]);
-	const [cosmosCounter, setCosmosCounter] = useState(0);
 
 	useEffect(() => {
 		setEvents([
