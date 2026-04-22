@@ -86,7 +86,10 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 					key={player.name}
 				>
 					<div className="avatar flex justify-center items-center">
-						<div className="w-12 rounded-full mr-3">
+						<div
+							className="w-12 rounded-full mr-3"
+							key={player.cat}
+						>
 							<img src={ `cats/${player.cat}.png` } />
 						</div>
 
