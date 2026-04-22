@@ -66,8 +66,6 @@ export const Navbar: React.FC<NavbarProps> = ({ playerName, setPlayerName, playe
 						: <Drawer
 							playerName={ playerName }
 							path={ path }
-							playerEmail={ playerEmail }
-							setPlayerEmail={ setPlayerEmail }
 							theme={ theme }
 							setTheme={ setTheme }
 						/>
