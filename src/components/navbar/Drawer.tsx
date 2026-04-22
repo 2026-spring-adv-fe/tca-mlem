@@ -1,19 +1,15 @@
 import { useNavigate } from "react-router";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import localforage from "localforage";
 
 type DrawerProps = {
 	playerName: string,
 	path: string,
-
-	playerEmail: string,
-	setPlayerEmail: (e: string) => void,
-
 	theme: string,
 	setTheme: (t: string) => void,
 }
 
-export const Drawer: React.FC<DrawerProps> = ({ playerName, path, playerEmail, setPlayerEmail, theme, setTheme }) => {
+export const Drawer: React.FC<DrawerProps> = ({ playerName, path, theme, setTheme }) => {
 	const nav = useNavigate();
 	const drawerRef = useRef<HTMLInputElement>(null);
 
