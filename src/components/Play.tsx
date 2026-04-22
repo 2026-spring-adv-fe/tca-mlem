@@ -5,6 +5,7 @@ import clsx from "clsx";
 
 import type { GameResult } from "../functions/GameResults";
 import type { GameEvent } from "../functions/GameResults";
+import { EventTimeline } from "./EventTimeline";
 
 
 /*
@@ -40,24 +41,9 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 	useEffect(() => {
 		setEvents([
 			{
-				playerName: 'Harry',
-				event:'Landed on planet',
-				points: '100'
-			},
-			{
-				playerName: 'Harry',
-				event:'Landed on Moon',
-				points: '80'
-			},
-			{
-				playerName: 'Harry',
-				event:'Landed on planet',
-				points: '300'
-			},
-			{
-				playerName: 'Harry',
-				event:'Reached the cosmos',
-				points: '500'
+				playerName: '',
+				event:'Game Start',
+				points: ''
 			},
 		]);
 
@@ -127,6 +113,23 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 					: null
 			)}
 		</div>
+
+		<EventTimeline
+			events={ events }
+		/>
+
+		<button onClick={ () =>
+			setEvents([
+				...events,
+				{
+					playerName: 'Harry',
+					event:'Landed on planet',
+					points: '100'
+				},
+			])}
+		>
+				Add Event
+			</button>
 
 		<div className="mx-auto w-full max-w-96">
 			{
