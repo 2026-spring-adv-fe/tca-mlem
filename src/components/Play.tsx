@@ -102,7 +102,7 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 					<button className="btn btn-primary btn-outline"
 						onClick={() => {
 							addNewGameResult({
-								winner: p.name ,
+								winner: p.name,
 								players: currentPlayers.map(p => p.name),
 								chosenCats: currentPlayers.map(p =>
 									({
