@@ -6,7 +6,6 @@ import clsx from "clsx";
 import type { GameResult } from "../functions/GameResults";
 import type { GameEvent } from "../functions/GameResults";
 import { EventTimeline } from "./EventTimeline";
-import { PointModal } from "./modal/PointModal";
 
 
 /*
@@ -39,9 +38,6 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 	const [page, setPage] = useState(1);
 	const [events, setEvents] = useState<GameEvent[]>([]);
 
-	const [playerName, setPlayerName] = useState('');
-	const [showPointModal, setShowPointModal] = useState(false);
-
 	const possibleEvents = [
 		'Landed on a planet',
 		'Landed on a moon',
@@ -52,11 +48,13 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 	useEffect(() => {
 		setEvents([
 			{
+				id: 0,
 				playerName: '',
 				event:'Game Start',
 				points: ''
 			},
 		]);
+
 
 	}, []);
 
@@ -120,19 +118,21 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 							key={player.page}
 						>
 							<div className="w-96 grid gap-3">
-								{possibleEvents.map(event =>
+								{possibleEvents.map((event, i) =>
 									<button
+										key={i}
 										className="btn bg-purple-800 text-white"
-										onClick={ () =>
+										onClick={() => {
 											setEvents([
 												...events,
 												{
+													id: (i + 1),
 													playerName: player.name,
 													event:event,
 													points: ''
 												},
 											])
-										}
+										}}
 									>
 										{ event }
 									</button>
@@ -155,32 +155,17 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 
 		<button
 			className="mx-auto"
-			onClick={() =>
+			onClick={ () => {
 				setEvents([
 					...events,
 					{
-						playerName: 'Harry',
-						event:'Landed on planet',
-						points: '100'
-					},
-				])
-			}
-		>
-				Add Event
-		</button>
-
-		<button
-			className="mx-auto"
-			onClick={ () =>
-				setEvents([
-					...events,
-					{
+						id: 500,
 						playerName: '',
 						event:'Game End',
 						points: ''
 					},
-				])
-			}
+				]);
+			}}
 		>
 				Game End
 		</button>

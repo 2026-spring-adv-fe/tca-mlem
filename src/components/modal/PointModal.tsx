@@ -28,11 +28,18 @@ export const PointModal: React.FC<PointModalProps> = ({ playerName, currentEvent
 		Closes the modal after providing a name
 	*/
 	const closeModal = async () => {
-		setEvents(allEvents.map(event =>
-			event.event == currentEvent
-				?
-				:
-		))
+		if (points) {
+			setEvents(allEvents.map(event =>
+				({
+					id: event.id,
+					playerName: event.playerName,
+					event: event.event,
+					points: event.id == currentEvent.id
+						? points
+						: event.points
+				})
+			))
+		}
 
 		// Reset show Point Modal state
 		setShowPointModal(false);
@@ -65,7 +72,7 @@ export const PointModal: React.FC<PointModalProps> = ({ playerName, currentEvent
 					<h3 className="font-bold text-lg">How many points for this event?</h3>
 
 					<label>
-						{ currentEvent }
+						{ currentEvent.event }
 						<input type="number"
 							className="number mt-3 mb-1.5"
 							onChange={ (e) => setPoints(e.target.value) }

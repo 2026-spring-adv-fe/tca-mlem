@@ -11,17 +11,12 @@ export const EventTimeline: React.FC<EventTimelineProps> = ({ events, setEvents 
 	const [event, setEvent] = useState<GameEvent>();
 	const [showPointModal, setShowPointModal] = useState(false);
 
-	useEffect(() => {
-		console.log(event);
-
-	}, [event]);
-
 	return (
 		<>
 		{ showPointModal && event
 			? <PointModal
 				playerName={ event.playerName }
-				currentEvent={ event.event }
+				currentEvent={ event }
 				allEvents={ events }
 				setEvents={ setEvents }
 				setShowPointModal={ setShowPointModal }
@@ -32,19 +27,32 @@ export const EventTimeline: React.FC<EventTimelineProps> = ({ events, setEvents 
 			{ events.map((e, i) =>
 				<li
 					key={i}
-					onClick={() => {
-						setShowPointModal(true)
-						setEvent(e);
-					}}
 				>
 					{/* Creates timeline line above the event on all events except the first */}
 					{ i != 0 ? <hr /> : null}
+					<div
+						className={
+							!e.points
+								? 'hidden'
+								: (i % 2 == 0)
+									? "timeline-end timeline-box"
+									: "timeline-start timeline-box"
+						}
+					>
+						{ `${e.points} pts` }
+					</div>
 					<div
 						className={
 							(i % 2 == 0)
 								? "timeline-start timeline-box"
 								: "timeline-end timeline-box"
 						}
+						onClick={() => {
+							if (e.event !== 'Game Start' && e.event !== 'Game End' && e.event !== 'Crashed') {
+								setShowPointModal(true)
+								setEvent(e);
+							}
+						}}
 					>
 						{
 							e.playerName
