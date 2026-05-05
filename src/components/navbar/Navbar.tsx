@@ -60,7 +60,7 @@ export const Navbar: React.FC<NavbarProps> = ({ playerName, setPlayerName, playe
 			<div className="navbar font-[Fira_Sans] bg-purple-900 shadow-md">
 				<div className="text-sm pr-2 navbar-start">
 					{ path == '/play'
-						? <button className="btn bg-red-600 border-red-600 text-white" onClick={ () => nav('/') } >
+						? <button className="btn bg-red-500 border-red-500 text-white" onClick={ () => nav('/') } >
 							Abort Game
 						</button>
 						: <Drawer
