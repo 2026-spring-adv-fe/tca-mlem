@@ -88,15 +88,15 @@ export const Home: React.FC<HomeProps> = ({ generalFacts, leaderboard, playerNam
 				</li>
 
 				<li className="list-row text-lg">
-					Most Points: <span className="text-right">{ generalFacts.favoriteCat }</span>
+					Most Points: <span className="text-right">{ generalFacts.mostPoints }</span>
 				</li>
 
 				<li className="list-row text-lg">
-					Least Points: <span className="text-right">{ generalFacts.favoriteCat }</span>
+					Least Points: <span className="text-right">{ generalFacts.leastPoints }</span>
 				</li>
 
 				<li className="list-row text-lg">
-					Reached the cosmos: <span className="text-right">{ generalFacts.favoriteCat } times</span>
+					Reached the cosmos: <span className="text-right">{ generalFacts.cosmosCount } times</span>
 				</li>
 			</ul>
 		</div>

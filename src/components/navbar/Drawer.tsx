@@ -1,24 +1,17 @@
 import { useNavigate } from "react-router";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import localforage from "localforage";
-import { Login } from "./Login";
 
 type DrawerProps = {
 	playerName: string,
 	path: string,
-
-	playerEmail: string,
-	setPlayerEmail: (e: string) => void,
-
 	theme: string,
 	setTheme: (t: string) => void,
 }
 
-export const Drawer: React.FC<DrawerProps> = ({ playerName, path, playerEmail, setPlayerEmail, theme, setTheme }) => {
+export const Drawer: React.FC<DrawerProps> = ({ playerName, path, theme, setTheme }) => {
 	const nav = useNavigate();
 	const drawerRef = useRef<HTMLInputElement>(null);
-
-	const [showLogin, setShowLogin] = useState(false);
 
 
 	/*
@@ -36,34 +29,20 @@ export const Drawer: React.FC<DrawerProps> = ({ playerName, path, playerEmail, s
 
 	return (
 		<>
-		<div className="drawer drawer-end">
+		<div className="drawer drawer-start">
 			<input id="navDrawer" ref={ drawerRef } type="checkbox" className="drawer-toggle" />
 
-			<div className="flex items-center justify-end">
-				{/* Email modal button */}
-				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 text-white"
-					onClick={ () => setShowLogin(true) }
-				>
-					<path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
-				</svg>
-
-				<label htmlFor="navDrawer" className="material-symbols-outlined text-white drawer-button ml-3">dehaze</label>
+			<div className="flex items-center justify-start">
+				<label htmlFor="navDrawer" className="material-symbols-outlined text-white drawer-button ml-2">dehaze</label>
 			</div>
-
-			{ showLogin
-				? <Login
-					playerEmail={ playerEmail }
-					setPlayerEmail={ setPlayerEmail }
-					setShowLogin={ setShowLogin }
-				/>
-				: null
-			}
 
 			<div className='drawer-side'>
 				<label htmlFor="navDrawer" aria-label="close sidebar" className="drawer-overlay"></label>
 				<ul className="menu bg-base-200 min-h-full w-60 p-4">
 					{/* Sidebar content here */}
 					<li className="flex flex-row justify-between items-center">
+						<div className="pt-3">Hello, { playerName }!</div>
+
 						<label className="swap swap-rotate">
 							{/* Store theme in local storage */}
 							<input type="checkbox"
@@ -92,7 +71,6 @@ export const Drawer: React.FC<DrawerProps> = ({ playerName, path, playerEmail, s
 								</svg>
 							</span>
 						</label>
-						<div className="">Hello, { playerName }!</div>
 					</li>
 
 					<div className="divider my-1"></div>

@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 import clsx from "clsx";
 
 import type { GameResult } from "../functions/GameResults";
+import type { GameEvent } from "../functions/GameResults";
+import { EventTimeline } from "./EventTimeline";
 
 
 /*
@@ -34,6 +36,18 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 	const nav = useNavigate();
 	const [startTimestamp] = useState(new Date().toISOString());
 	const [page, setPage] = useState(1);
+	const [events, setEvents] = useState<GameEvent[]>([]);
+
+	useEffect(() => {
+		setEvents([
+			{
+				playerName: '',
+				event:'Game Start',
+				points: ''
+			},
+		]);
+
+	}, []);
 
 	return (
 		<>
@@ -58,7 +72,10 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 					key={player.name}
 				>
 					<div className="avatar flex justify-center items-center">
-						<div className="w-12 rounded-full mr-3">
+						<div
+							className="w-12 rounded-full mr-3"
+							key={player.cat}
+						>
 							<img src={ `cats/${player.cat}.png` } />
 						</div>
 
@@ -88,6 +105,7 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 								'carousel-item w-full',
 								page != player.page && 'hidden'
 							)}
+							key={player.page}
 						>
 							{ player.name }
 						</div>
@@ -95,6 +113,42 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 					: null
 			)}
 		</div>
+
+		<EventTimeline
+			events={ events }
+		/>
+
+		<button
+			className="mx-auto"
+			onClick={ () =>
+				setEvents([
+					...events,
+					{
+						playerName: 'Harry',
+						event:'Landed on planet',
+						points: '100'
+					},
+				])
+			}
+		>
+				Add Event
+		</button>
+
+		<button
+			className="mx-auto"
+			onClick={ () =>
+				setEvents([
+					...events,
+					{
+						playerName: '',
+						event:'Game End',
+						points: ''
+					},
+				])
+			}
+		>
+				Game End
+		</button>
 
 		<div className="mx-auto w-full max-w-96">
 			{
@@ -110,6 +164,7 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 										cat: p.cat
 									})
 								),
+								events: events,
 								start: startTimestamp,
 								end: new Date().toISOString(),
 							});

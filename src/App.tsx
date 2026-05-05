@@ -37,6 +37,7 @@ const dummyGameResults: GameResult[] = [
 			{ playerName: 'Hermione', cat: 'Engineer' },
 			{ playerName: 'Ron', cat: 'Explorer' }
 		],
+		events: [],
 		start: "2026-02-01T18:53:59.078Z",
 		end: "2026-02-01T19:27:59.078Z",
 	},
@@ -52,6 +53,7 @@ const dummyGameResults: GameResult[] = [
 			{ playerName: 'Hermione', cat: 'Captain' },
 			{ playerName: 'Ron', cat: 'Explorer' }
 		],
+		events: [],
 		start: "2026-01-15T22:07:59.078Z",
 		end: "2026-01-15T23:01:59.078Z",
 	},
@@ -62,6 +64,7 @@ const dummyGameResults: GameResult[] = [
 			"Hermione",
 			"Ron",
 		],
+		events: [],
 		chosenCats: [
 			{ playerName: 'Snape', cat: 'Chef' },
 			{ playerName: 'Hermione', cat: 'Captain' },
@@ -104,8 +107,6 @@ const App = () => {
 
 	// Save email locally
 	useEffect(() => {
-		console.log(playerEmail);
-
 		const loadEmail = async () => {
 			const result = await localforage.getItem<string>('email') ?? '';
 
