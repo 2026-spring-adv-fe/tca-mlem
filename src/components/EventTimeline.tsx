@@ -9,7 +9,9 @@ export const EventTimeline: React.FC<EventTimelineProps> = ({ events }) => {
 		<>
 		<ul className="timeline timeline-vertical">
 			{ events.map((e, i) =>
-				<li>
+				<li key={i}>
+					{/* Creates timeline line above the event on all events except the first */}
+					{ i != 0 ? <hr /> : null}
 					<div
 						className={
 							(i % 2 == 0)
@@ -39,7 +41,7 @@ export const EventTimeline: React.FC<EventTimelineProps> = ({ events }) => {
 						</svg>
 					</div>
 
-					<hr />
+					{ e.event !== 'Game End' ? <hr /> : null}
 				</li>
 			)}
 		</ul>

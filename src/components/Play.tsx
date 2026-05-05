@@ -118,18 +118,37 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 			events={ events }
 		/>
 
-		<button onClick={ () =>
-			setEvents([
-				...events,
-				{
-					playerName: 'Harry',
-					event:'Landed on planet',
-					points: '100'
-				},
-			])}
+		<button
+			className="mx-auto"
+			onClick={ () =>
+				setEvents([
+					...events,
+					{
+						playerName: 'Harry',
+						event:'Landed on planet',
+						points: '100'
+					},
+				])
+			}
 		>
 				Add Event
-			</button>
+		</button>
+
+		<button
+			className="mx-auto"
+			onClick={ () =>
+				setEvents([
+					...events,
+					{
+						playerName: '',
+						event:'Game End',
+						points: ''
+					},
+				])
+			}
+		>
+				Game End
+		</button>
 
 		<div className="mx-auto w-full max-w-96">
 			{
