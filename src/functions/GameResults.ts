@@ -9,6 +9,7 @@ export type ChosenCat = {
 }
 
 export type GameEvent = {
+	id: number,
 	playerName: string;
 	event: string;
 	points: string;

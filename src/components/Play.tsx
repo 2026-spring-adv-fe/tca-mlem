@@ -6,6 +6,7 @@ import clsx from "clsx";
 import type { GameResult } from "../functions/GameResults";
 import type { GameEvent } from "../functions/GameResults";
 import { EventTimeline } from "./EventTimeline";
+import { PointModal } from "./modal/PointModal";
 
 
 /*
@@ -38,6 +39,16 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 	const [page, setPage] = useState(1);
 	const [events, setEvents] = useState<GameEvent[]>([]);
 
+	const [playerName, setPlayerName] = useState('');
+	const [showPointModal, setShowPointModal] = useState(false);
+
+	const possibleEvents = [
+		'Landed on a planet',
+		'Landed on a moon',
+		'Made it to the cosmos',
+		'Crashed',
+	]
+
 	useEffect(() => {
 		setEvents([
 			{
@@ -49,11 +60,12 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 
 	}, []);
 
+
 	return (
 		<>
 		<div className="grid grid-flow-col w-full gap-2 py-2 text-center mt-2">
 			<button onClick={ () => setPage(page - 1) }
-				className={ clsx(
+				className={clsx(
 					"material-symbols-outlined btn btn-ghost btn-xs ml-1 justify-self-start",
 					page <= 1 && '!btn-disabled'
 				)}
@@ -65,7 +77,7 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 			{/* Player Names */}
 			{ currentPlayers.map((player) =>
 				<h1
-					className={ clsx(
+					className={clsx(
 						"text-lg",
 						page != player.page && 'hidden'
 					)}
@@ -101,26 +113,49 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 				(page == player.page)
 					? <div className="carousel w-full max-w-96">
 						<div
-							className={ clsx(
+							className={clsx(
 								'carousel-item w-full',
 								page != player.page && 'hidden'
 							)}
 							key={player.page}
 						>
-							{ player.name }
+							<div className="w-96 grid gap-3">
+								{possibleEvents.map(event =>
+									<button
+										className="btn bg-purple-800 text-white"
+										onClick={ () =>
+											setEvents([
+												...events,
+												{
+													playerName: player.name,
+													event:event,
+													points: ''
+												},
+											])
+										}
+									>
+										{ event }
+									</button>
+								)}
+							</div>
 						</div>
 					</div>
 					: null
 			)}
 		</div>
 
+		<div className="p-4 pb-2 text-xs opacity-60 tracking-wide text-center">
+			Click on an event to add or modify the point value
+		</div>
+
 		<EventTimeline
 			events={ events }
+			setEvents={ setEvents }
 		/>
 
 		<button
 			className="mx-auto"
-			onClick={ () =>
+			onClick={() =>
 				setEvents([
 					...events,
 					{

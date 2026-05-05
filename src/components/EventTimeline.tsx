@@ -1,15 +1,42 @@
+import { useEffect, useState } from "react";
 import type { GameEvent } from "../functions/GameResults";
+import { PointModal } from "./modal/PointModal";
 
 type EventTimelineProps = {
 	events: GameEvent[],
+	setEvents: (e: GameEvent[]) => void
 };
 
-export const EventTimeline: React.FC<EventTimelineProps> = ({ events }) => {
+export const EventTimeline: React.FC<EventTimelineProps> = ({ events, setEvents }) => {
+	const [event, setEvent] = useState<GameEvent>();
+	const [showPointModal, setShowPointModal] = useState(false);
+
+	useEffect(() => {
+		console.log(event);
+
+	}, [event]);
+
 	return (
 		<>
+		{ showPointModal && event
+			? <PointModal
+				playerName={ event.playerName }
+				currentEvent={ event.event }
+				allEvents={ events }
+				setEvents={ setEvents }
+				setShowPointModal={ setShowPointModal }
+			/>
+			: null
+		}
 		<ul className="timeline timeline-vertical">
 			{ events.map((e, i) =>
-				<li key={i}>
+				<li
+					key={i}
+					onClick={() => {
+						setShowPointModal(true)
+						setEvent(e);
+					}}
+				>
 					{/* Creates timeline line above the event on all events except the first */}
 					{ i != 0 ? <hr /> : null}
 					<div
