@@ -69,6 +69,7 @@ export const PointModal: React.FC<PointModalProps> = ({ currentEvent,  allEvents
 					{ currentEvent.event }
 					<input type="number"
 						className="input mt-3 mb-1.5"
+						value={ currentEvent.points }
 						onChange={ (e) => setPoints(e.target.value) }
 					/>
 
