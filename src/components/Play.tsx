@@ -41,7 +41,7 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 	const possibleEvents = [
 		'Landed on a planet',
 		'Landed on a moon',
-		'Made it to the cosmos',
+		'Reached the cosmos',
 		'Crashed',
 	]
 
