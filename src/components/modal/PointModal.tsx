@@ -1,14 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
-import localforage from "localforage";
 import type { GameEvent } from "../../functions/GameResults";
-
 
 /*
 	Point Modal Props
 */
 type PointModalProps = {
-	playerName: string,
 	currentEvent: GameEvent,
 	allEvents: GameEvent[],
 	setEvents: (e: GameEvent[]) => void,
@@ -19,16 +16,15 @@ type PointModalProps = {
 /*
 	Point Modal Component
 */
-export const PointModal: React.FC<PointModalProps> = ({ playerName, currentEvent,  allEvents, setEvents, setShowPointModal }) => {
-	const [points, setPoints] = useState<string>();
+export const PointModal: React.FC<PointModalProps> = ({ currentEvent,  allEvents, setEvents, setShowPointModal }) => {
+	const [points, setPoints] = useState<string>('');
 	const dialogRef = useRef<HTMLDialogElement>(null);
-
 
 	/*
 		Closes the modal after providing a name
 	*/
-	const closeModal = async () => {
-		if (points) {
+	const closeModal = async (cancel: boolean) => {
+		if (!cancel) {
 			setEvents(allEvents.map(event =>
 				({
 					id: event.id,
@@ -48,7 +44,6 @@ export const PointModal: React.FC<PointModalProps> = ({ playerName, currentEvent
 		dialogRef.current?.close();
 	}
 
-
 	/*
 		Open the modal when the app loads
 	*/
@@ -66,28 +61,26 @@ export const PointModal: React.FC<PointModalProps> = ({ playerName, currentEvent
 						e.preventDefault();
 
 						// Close the modal
-						closeModal();
+						closeModal(false);
 					}}
 				>
 					<h3 className="font-bold text-lg">How many points for this event?</h3>
 
-					<label>
-						{ currentEvent.event }
-						<input type="number"
-							className="number mt-3 mb-1.5"
-							onChange={ (e) => setPoints(e.target.value) }
-						/>
-					</label>
+					{ currentEvent.event }
+					<input type="number"
+						className="input mt-3 mb-1.5"
+						onChange={ (e) => setPoints(e.target.value) }
+					/>
 
 					<button type="submit" className="btn bg-purple-900 text-white mt-3">
-						Save Email
+						Save Points
 					</button>
 
 					<button
-						className="btn btn-error text-white mt-3 ml-3"
-						onClick={ () => closeModal() }
+						className="btn bg-red-500 border-red-500 text-white mt-3 ml-3"
+						onClick={ () => closeModal(true) }
 					>
-							Cancel
+						Cancel
 					</button>
 				</form>
 			</div>
