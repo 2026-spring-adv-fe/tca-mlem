@@ -120,15 +120,21 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 		Updates player's chosen cats on drag n drop setup screen
 	*/
 	const setPlayerCat = (playerName: string, cat: string) => {
+		let players = currentPlayers;
+
 		if (playerName) {
-			// Set current players and the page they should appear on
-			setCurrentPlayers(currentPlayers.map(p =>
+			players = currentPlayers.map(p =>
 				({
 					name: p.name,
-					cat: p.name == playerName ? cat : p.cat,
+					cat: (p.name == playerName)
+						? cat
+						: p.cat == cat ? '' : p.cat,
 					page: p.page
 				})
-			));
+			);
+
+			// Set current players and the page they should appear on
+			setCurrentPlayers(players);
 		} else {
 			// Unset cat from player
 			setCurrentPlayers(currentPlayers.map(p =>
@@ -141,10 +147,7 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 		}
 
 		// Update chosen cats
-		setChosenCats([
-			...chosenCats,
-			cat
-		]);
+		setChosenCats(players.map(p => p.cat).filter(Boolean));
 	}
 
 
@@ -233,11 +236,6 @@ export const Setup: React.FC<SetupProps> = ({ playerName, allPlayers, currentPla
 
 							// Set player cat
 							setPlayerCat(playerName, cat);
-
-							// Add cat back to drag and drop zone
-							if (!playerName) {
-								setChosenCats(chosenCats.map(c => c == cat ? '' : c));
-							}
 						}}
 					>
 						<div className="w-full max-w-96 mb-3 grid grid-cols-2">
