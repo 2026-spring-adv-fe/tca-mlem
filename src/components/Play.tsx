@@ -129,7 +129,7 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 												{
 													id: id,
 													playerName: player.name,
-													event:event,
+													event: event,
 													points: ''
 												},
 											])
