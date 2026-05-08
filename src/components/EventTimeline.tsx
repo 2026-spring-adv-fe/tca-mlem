@@ -40,6 +40,7 @@ export const EventTimeline: React.FC<EventTimelineProps> = ({ events, setEvents 
 					>
 						{ `${e.points} pts` }
 					</div>
+
 					<div
 						className={
 							(i % 2 == 0)
