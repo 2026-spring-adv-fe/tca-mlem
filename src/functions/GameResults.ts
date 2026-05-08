@@ -9,7 +9,7 @@ export type ChosenCat = {
 }
 
 export type GameEvent = {
-	id: number,
+	id: string,
 	playerName: string;
 	event: string;
 	points: string;
@@ -48,7 +48,9 @@ export type LeaderboardEntry = {
 
 
 /*
-	Exported Functions
+==================================================================
+					Exported Functions
+==================================================================
 */
 
 
@@ -154,8 +156,8 @@ export const getLeaderboardEntry = (games: GameResult[], player: string): Leader
 
 /*
 	Gets all players and creates a leaderboard in order of
-		1. Wins
-		2. Win / Loss Ratio
+		1.. Win / Loss Ratio
+		2. Wins
 		3. Losses
 		4. Total games
 */
@@ -163,8 +165,8 @@ export const getLeaderboard = (games: GameResult[]): LeaderboardEntry[] => {
 	const leaderboard = getAllPlayers(games).map(player =>
 		({ ...getLeaderboardEntry(games, player) })
 	).sort((a, b) =>
-        b.wins - a.wins ||
 		parseFloat(b.ratio) - parseFloat(a.ratio) ||
+        b.wins - a.wins ||
         a.losses - b.losses ||
 		a.totalGames - b.totalGames
     );
@@ -192,7 +194,9 @@ export const getAllPlayers = (games: GameResult[]) => {
 
 
 /*
-	Helper functions
+==================================================================
+					Helper functions
+==================================================================
 */
 
 const formatGameDuration = durationFormatter<string> ({});
