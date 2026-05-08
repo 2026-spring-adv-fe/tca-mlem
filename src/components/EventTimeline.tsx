@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { GameEvent } from "../functions/GameResults";
 import { PointModal } from "./modal/PointModal";
 
@@ -15,7 +15,6 @@ export const EventTimeline: React.FC<EventTimelineProps> = ({ events, setEvents 
 		<>
 		{ showPointModal && event
 			? <PointModal
-				playerName={ event.playerName }
 				currentEvent={ event }
 				allEvents={ events }
 				setEvents={ setEvents }
@@ -48,6 +47,7 @@ export const EventTimeline: React.FC<EventTimelineProps> = ({ events, setEvents 
 								: "timeline-end timeline-box"
 						}
 						onClick={() => {
+							console.log(events);
 							if (e.event !== 'Game Start' && e.event !== 'Game End' && e.event !== 'Crashed') {
 								setShowPointModal(true)
 								setEvent(e);
