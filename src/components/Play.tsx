@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
-import clsx from "clsx";
-
 import type { GameResult } from "../functions/GameResults";
 import type { GameEvent } from "../functions/GameResults";
 import { EventTimeline } from "./EventTimeline";
 
+import { v4 as uuidv4 } from "uuid";
+
+import clsx from "clsx";
 
 /*
 	Represents a player
@@ -29,7 +30,6 @@ type PlayProps = {
 /*
 	Play Component
 
-	TODO: add 'Events' that allows a player to input what happened on their turn -> i.e. 'Landed on planet', 'Landed on moon', 'Crashed', 'Made it to cosmos'
 	TODO: add multipliers that target a specific event for end game calculations -> i.e. 'Landed on planet' x2, 'Landed on moon' x2'
 */
 export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) => {
@@ -48,14 +48,12 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 	useEffect(() => {
 		setEvents([
 			{
-				id: 0,
+				id: '0',
 				playerName: '',
 				event:'Game Start',
 				points: ''
 			},
 		]);
-
-
 	}, []);
 
 
@@ -109,7 +107,7 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 		<div className="text-center">
 			{currentPlayers.map(player =>
 				(page == player.page)
-					? <div className="carousel w-full max-w-96">
+					? <div className="carousel w-full max-w-96" key={player.cat}>
 						<div
 							className={clsx(
 								'carousel-item w-full',
@@ -118,15 +116,18 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 							key={player.page}
 						>
 							<div className="w-96 grid gap-3">
-								{possibleEvents.map((event, i) =>
+								{possibleEvents.map(event =>
 									<button
-										key={i}
+										key={ uuidv4() }
 										className="btn bg-purple-800 text-white"
 										onClick={() => {
+											// Create event id
+											const id = uuidv4();
+
 											setEvents([
 												...events,
 												{
-													id: (i + 1),
+													id: id,
 													playerName: player.name,
 													event:event,
 													points: ''
@@ -159,7 +160,7 @@ export const Play: React.FC<PlayProps> = ({ currentPlayers, addNewGameResult }) 
 				setEvents([
 					...events,
 					{
-						id: 500,
+						id: '500',
 						playerName: '',
 						event:'Game End',
 						points: ''
