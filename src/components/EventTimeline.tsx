@@ -48,7 +48,6 @@ export const EventTimeline: React.FC<EventTimelineProps> = ({ events, setEvents 
 								: "timeline-end timeline-box"
 						}
 						onClick={() => {
-							console.log(events);
 							if (e.event !== 'Game Start' && e.event !== 'Game End' && e.event !== 'Crashed') {
 								setShowPointModal(true)
 								setEvent(e);
