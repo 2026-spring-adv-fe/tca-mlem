@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 
-import localforage from "localforage";
 import type { GameEvent } from "../../functions/GameResults";
 
 
@@ -8,7 +7,6 @@ import type { GameEvent } from "../../functions/GameResults";
 	Point Modal Props
 */
 type PointModalProps = {
-	playerName: string,
 	currentEvent: GameEvent,
 	allEvents: GameEvent[],
 	setEvents: (e: GameEvent[]) => void,
@@ -19,7 +17,7 @@ type PointModalProps = {
 /*
 	Point Modal Component
 */
-export const PointModal: React.FC<PointModalProps> = ({ playerName, currentEvent,  allEvents, setEvents, setShowPointModal }) => {
+export const PointModal: React.FC<PointModalProps> = ({ currentEvent,  allEvents, setEvents, setShowPointModal }) => {
 	const [points, setPoints] = useState<string>();
 	const dialogRef = useRef<HTMLDialogElement>(null);
 
